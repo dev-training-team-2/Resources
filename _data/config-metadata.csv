@@ -2,5 +2,6 @@ field,display_name,
 title,Title,
 browse_link, Resource Link,
 description,Description,
-subject,Subjects,true
 item_information,Item Information,
+subject,Subjects,true
+
