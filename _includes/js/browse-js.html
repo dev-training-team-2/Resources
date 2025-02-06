@@ -105,6 +105,11 @@ function makeCard(obj) {
     {% unless forloop.last %}card += '<br>';{% endunless %}
     }
     {% endunless %}{% endfor %}
+
+    // Add resourceLink to card if present
+if(resourceLink) {
+    card += '<strong>Resource Link:</strong> ' + resourceLink + '<br>';
+}
     card += '</p>';
     // media type
     if(obj.format != "") {
