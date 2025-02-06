@@ -46,36 +46,79 @@ function displayItem(record, prev_id, next_id, compound_object) {
 
     /* function to add item to page */
     var itemDisplay, itemDownload;
+   
     function addItem(item) {
-        if (item.format.includes('image')) {
-            itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + findFileLink(item) + '"><img class="img-fluid" src="' + findFileLink(item) + '" alt="' + item.title + '">';
-            itemDisplay += record.format.includes('multiple') ? '</a>' : '<div><small class="text-dark">Click to view full screen</small></div></a>';
-            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
-        } else if (item.format.includes('pdf')) {
-            itemDisplay = '<div class="ratio ratio-4x3"><object title="PDF file of ' + item.title + '" data="' + findFileLink(item) + '" type="application/pdf" width="100%"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object></div>';
-            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download PDF</a>';
-        } else if (item.format.includes('audio')) {
-            itemDisplay = '<audio controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the audio element. Please <a href="' + findFileLink(item) + '">download the audio file</a>.</audio>';
-            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
-        } else if (item.youtubeid) {
-            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtubeid + '?enablejsapi=1&rel=0&modestbranding=1" allowfullscreen></iframe></div>';
-            itemDownload = '<a href="https://youtu.be/' + item.youtubeid + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on YouTube</a>';
-        } else if (item.vimeoid) {
-            itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '"src="https://player.vimeo.com/video/' + item.vimeoid + '" allowfullscreen></iframe></div>';
-            itemDownload = '<a href="https://vimeo.com/' + item.vimeoid + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on Vimeo</a>';
-        } else if (item.format.includes('video')) {
-            itemDisplay = '<video controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the video tag. Please <a href="' + findFileLink(item) + '">download the video file</a>.</video>';
-            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
-        } else if (item.format.includes('record')) {
-            itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
-            itemDownload = findFileLink(item) != "" ? '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
+    // Handling for image format
+    if (item.format.includes('image')) {
+        itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + findFileLink(item) + '"><img class="img-fluid" src="' + findFileLink(item) + '" alt="' + item.title + '">';
+        itemDisplay += record.format.includes('multiple') ? '</a>' : '<div><small class="text-dark">Click to view full screen</small></div></a>';
+        // Check for browse_link
+        if (item.browse_link && item.browse_link.includes('/')) {
+            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
         } else {
-            /* fall back to no preview if it doesn't know the format */
-            itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+        }
+    } 
+    // Handling for PDF format
+    else if (item.format.includes('pdf')) {
+        itemDisplay = '<div class="ratio ratio-4x3"><object title="PDF file of ' + item.title + '" data="' + findFileLink(item) + '" type="application/pdf" width="100%"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object></div>';
+
+        // Check for browse_link
+        if (item.browse_link && item.browse_link.includes('/')) {
+            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
+        } else {
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download PDF</a>';
+        }
+    } 
+    // Handling for audio format
+    else if (item.format.includes('audio')) {
+        itemDisplay = '<audio controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the audio element. Please <a href="' + findFileLink(item) + '">download the audio file</a>.</audio>';
+        itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+    } 
+    // Handling for YouTube videos
+    else if (item.youtubeid) {
+        itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://www.youtube-nocookie.com/embed/' + item.youtubeid + '?enablejsapi=1&rel=0&modestbranding=1" allowfullscreen></iframe></div>';
+        itemDownload = '<a href="https://youtu.be/' + item.youtubeid + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on YouTube</a>';
+    } 
+    // Handling for Vimeo videos
+    else if (item.vimeoid) {
+        itemDisplay = '<div class="ratio ratio-16x9"><iframe title="video embed ' + item.title + '" src="https://player.vimeo.com/video/' + item.vimeoid + '" allowfullscreen></iframe></div>';
+        itemDownload = '<a href="https://vimeo.com/' + item.vimeoid + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">View on Vimeo</a>';
+    } 
+    // Handling for general video format
+    else if (item.format.includes('video')) {
+        itemDisplay = '<video controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the video tag. Please <a href="' + findFileLink(item) + '">download the video file</a>.</video>';
+        itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+    } 
+    // Handling for record format
+    else if (item.format.includes('record')) {
+        itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
+
+        // Check for browse_link
+        if (item.browse_link && item.browse_link.includes('/')) {
+            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
+        } else {
+            itemDownload = findFileLink(item) != "" ? '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
+        }
+    } 
+    // Fallback for unknown formats
+    else {
+        itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
+        
+        // Check for browse_link
+        if (item.browse_link && item.browse_link.includes('/')) {
+            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
+        } else {
             itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Object</a>';
         }
-        if (item === record) { itemImage = itemDisplay; }
-    };
+    }
+
+    // Set the itemImage if it's the current record
+    if (item === record) { 
+        itemImage = itemDisplay; 
+    }
+}
+
 
     /* function to add item metadata */
     function generateMetadata(item) {
