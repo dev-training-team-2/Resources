@@ -20,7 +20,7 @@
     - "width" = will use responsive sizing to set the % size on desktop (will be 100% on mobile), choose from "25", "50", "75", or "100" (optional)
     
 {%- endcomment -%}
-{%- assign figures = include.objectid | split: ";" %}
+
 {%- assign captions = include.caption | split: ";" %}
 {%- assign alts = include.alt | split: ";" -%}
 {%- assign links = include.link | split: ";" -%}
@@ -33,11 +33,28 @@
         {%- capture image_link -%}{{ links[forloop.index0] | default: image_src }}{%- endcapture -%}
     {% else %}
         {%- assign figure = site.data[site.metadata] | where: "objectid", i | first -%}
-        {%- capture image_link -%}{% if figure.parentid %}{{ figure.objectid | prepend: '#' | prepend: figure.parentid | prepend: '/item.html?id=' | relative_url }}{% else %}{{ figure.objectid | prepend: '/item.html?id=' | relative_url }}{% endif %}{% endcapture %}
+        
+        {% if figure.browse_link %}
+            {%- capture image_link -%}{{ figure.browse_link }}{%- endcapture -%}
+            {%- capture image_src -%}Resource Link{%- endcapture -%}
+        {% else %}
+            {%- capture image_src -%}
+                {% if figure.youtubeid %}
+                    {{ 'https://img.youtube.com/vi/' | append: figure.youtubeid | append: '/hqdefault.jpg' }}
+                {% elsif figure.filename contains '/' %}
+                    {{ figure.filename | relative_url }}
+                {% else %}
+                    {{ '/objects/' | append: figure.filename | relative_url }}
+                {% endif %}
+            {%- endcapture -%}
+            {%- capture image_link -%}{% if figure.parentid %}{{ figure.objectid | prepend: '#' | prepend: figure.parentid | prepend: '/item.html?id=' | relative_url }}{% else %}{{ figure.objectid | prepend: '/item.html?id=' | relative_url }}{% endif %}{% endcapture %}
+        {% endif %}
+        
         {%- capture image_caption -%}{{ captions[forloop.index0] | default: figure.title }}{%- endcapture -%}
         {%- capture image_alt -%}{{ alts[forloop.index0] | default: figure.title }}{%- endcapture -%}
-        {%- capture image_src -%}{% if figure.youtubeid %}{{ 'https://img.youtube.com/vi/' | append: figure.youtubeid | append: '/hqdefault.jpg' }}{% elsif figure.filename contains '/' %}{{ figure.filename | relative_url }}{% else %}{{ '/objects/' | append: figure.filename | relative_url }}{% endif %}{% endcapture %}
     {% endif %}
+{% endfor %}
+
     <div class="col-md text-center">
         <figure class="figure mx-3{% if include.width %} feature-w-{{ include.width }}{% endif %}">
             <a href="{{ image_link | default: image_src}}">
