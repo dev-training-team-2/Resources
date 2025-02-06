@@ -14,9 +14,19 @@ var cb_items = [
 
 /* function to find links to objects from filename field */ 
 function findFileLink(record) {
-    var fileLink = record.filename.includes('/') ? record.filename : "{{ '/objects/' | relative_url }}" + record.filename;
+    var fileLink;
+
+    // Check if browse_link exists and contains a '/'
+    if (record.browse_link && record.browse_link.includes('/')) {
+        fileLink = record.browse_link; // Use browse_link if it contains '/'
+    } else {
+        // If filename contains '/', use it directly, otherwise prepend '/objects/'
+        fileLink = record.filename.includes('/') ? record.filename : "{{ '/objects/' | relative_url }}" + record.filename;
+    }
+
     return fileLink;
 }
+
 /* function to create item page features */ 
 function displayItem(record, prev_id, next_id, compound_object) { 
 
