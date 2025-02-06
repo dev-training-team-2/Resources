@@ -126,7 +126,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
 
 
     /* function to add item metadata */
- function generateMetadata(item) {
+function generateMetadata(item) {
     var fields = '<dl>';
     
     // Loop through the fields and generate metadata
@@ -155,7 +155,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
         {% endif %}
     {% endfor %}
 
-    // Check if item.source_link contains '/' and if so, convert it into a clickable link
+    // Alter source_link if it contains a '/'
     if (item.source_link && item.source_link.includes('/')) {
         fields += '<dt class="field">Source Link:</dt> <dd class="field-value"><a href="' + item.source_link + '" target="_blank" rel="noopener">' + item.source_link + '</a></dd>';
     }
@@ -163,6 +163,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
     fields += '</dl>'; // Close the description list
     return fields; // Return the generated HTML
 };
+
 
 
     /* function to add download, timeline, and map links */
