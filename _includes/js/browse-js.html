@@ -83,9 +83,9 @@ function makeCard(obj) {
         card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
     }
 
-    ///Add soucrce_link here
+    ///Add source_link here
     if(obj.source_link) {
-        resourceLink = '<p class="card-text">'<a href="'+ item.source_link +'" target="_blank" rel="noopener">'+ item.source_link +'</a>' 
+        resourceLink = '<p class="card-text"><a href="'+ obj.source_link +'" target="_blank" rel="noopener">'+ obj.source_link +'</a>' 
         card += '<strong>Resource Link:</strong></>p' + resourceLink + '<br>';
     }
     
