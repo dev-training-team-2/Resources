@@ -35,35 +35,43 @@
     Set up carousel div
 {%- endcomment -%}
 <style>
-    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '300' }}px; }
+    /* Set up the carousel item to split the image and content */
+    .carousel-item .carousel-item-content {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    /* 60% for the image and 40% for the content */
+    .carousel-item .carousel-item-image {
+        flex: 0 0 60%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .carousel-item .carousel-item-text {
+        flex: 0 0 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.5); /* Optional: Add dark background for readability */
+    }
+
+    /* Optional: Style the title */
+    .carousel-item .carousel-item-title {
+        color: white;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    /* Optional: Style the button */
+    .carousel-item .carousel-item-btn {
+        align-self: flex-start;
+    }
 </style>
-<div class="card mb-3">
-    {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
-    <div class="card-body">
-        {% if include.title %}<h5 class="card-title">{{ include.title }}</h5>{% endif %}
-        
-        <div id="imageCarousel" class="carousel slide bg-dark rounded mb-3" data-bs-ride="carousel">
-            <div id="carouselIndicators" class="carousel-indicators">
-                
-            </div>
-            <div id="carouselInner" class="carousel-inner">
-                
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-            
-    </div>
-</div>
-{%- comment -%}
-    add slides using JS to allow for randomizing slide show
-{%- endcomment -%}
+
 <script>
 (function(){
     /* add item data */
@@ -84,13 +92,16 @@
         itemLink = "{{ '/item.html' | relative_url | append: '?id=' }}" + carouselItems[i][2];
         // create indicator 
         indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i.toString()}" ${ i == 0 ? 'class="active" aria-current="true" ' : '' }aria-label="Slide ${i.toString()}"></button>`;
-        // create slide
+        // create slide with 60% image on the left and 40% content on the right
         slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
-            <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
-            <div class="carousel-caption">
-                <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
-                <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
-            </div></div>`;
+            <div class="carousel-item-content">
+                <div class="carousel-item-image" style="background-image: url('${itemImg}');"></div>
+                <div class="carousel-item-text">
+                    <h5 class="carousel-item-title">${carouselItems[i][0]}</h5>
+                    <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }} carousel-item-btn">{{ btn-text }}</a>
+                </div>
+            </div>
+        </div>`;
         slides += slide;
         indicators += indicator;
     }
@@ -100,3 +111,4 @@
     carousel.innerHTML = slides;
 })();
 </script>
+
