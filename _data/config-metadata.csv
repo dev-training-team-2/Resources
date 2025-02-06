@@ -1,7 +1,6 @@
-field,display_name,browse_link,external_link
+field,display_name,
 title,Title,
+browse_link, Resource Link,
 description,Description,
 subject,Subjects,true
 item_information,Item Information,
-format,Format,
-browse_link, Link,
