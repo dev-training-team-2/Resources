@@ -52,9 +52,10 @@ function displayItem(record, prev_id, next_id, compound_object) {
     if (item.format.includes('image')) {
         itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + findFileLink(item) + '"><img class="img-fluid" src="' + findFileLink(item) + '" alt="' + item.title + '">';
         itemDisplay += record.format.includes('multiple') ? '</a>' : '<div><small class="text-dark">Click to view full screen</small></div></a>';
-        // Check for browse_link
-        if (item.browse_link && item.browse_link.includes('/')) {
-            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
+
+        // Check for source_link
+        if (item.source_link && item.source_link.includes('/')) {
+            itemDownload = '<a href="' + item.source_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
         } else {
             itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
         }
@@ -63,9 +64,9 @@ function displayItem(record, prev_id, next_id, compound_object) {
     else if (item.format.includes('pdf')) {
         itemDisplay = '<div class="ratio ratio-4x3"><object title="PDF file of ' + item.title + '" data="' + findFileLink(item) + '" type="application/pdf" width="100%"><p>The PDF is not rendering in your browser. Please use the button below to download the PDF.</p></object></div>';
 
-        // Check for browse_link
-        if (item.browse_link && item.browse_link.includes('/')) {
-            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
+        // Check for source_link
+        if (item.source_link && item.source_link.includes('/')) {
+            itemDownload = '<a href="' + item.source_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
         } else {
             itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download PDF</a>';
         }
@@ -73,7 +74,10 @@ function displayItem(record, prev_id, next_id, compound_object) {
     // Handling for audio format
     else if (item.format.includes('audio')) {
         itemDisplay = '<audio controls class="w-100"><source src="' + findFileLink(item) + '">Your browser does not support the audio element. Please <a href="' + findFileLink(item) + '">download the audio file</a>.</audio>';
-        itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+
+  
+            itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
+        
     } 
     // Handling for YouTube videos
     else if (item.youtubeid) {
@@ -94,9 +98,9 @@ function displayItem(record, prev_id, next_id, compound_object) {
     else if (item.format.includes('record')) {
         itemDisplay = item === record ? '' : '<img class="w-25" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-record }}.svg" alt="No preview found">';
 
-        // Check for browse_link
-        if (item.browse_link && item.browse_link.includes('/')) {
-            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
+        // Check for source_link
+        if (item.source_link && item.source_link.includes('/')) {
+            itemDownload = '<a href="' + item.source_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
         } else {
             itemDownload = findFileLink(item) != "" ? '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Link to Object</a>' : '';
         }
@@ -105,9 +109,9 @@ function displayItem(record, prev_id, next_id, compound_object) {
     else {
         itemDisplay = '<img class="w-50" src="{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg" alt="No preview found">';
         
-        // Check for browse_link
-        if (item.browse_link && item.browse_link.includes('/')) {
-            itemDownload = '<a href="' + item.browse_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
+        // Check for source_link
+        if (item.source_link && item.source_link.includes('/')) {
+            itemDownload = '<a href="' + item.source_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Resource Link</a>';
         } else {
             itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download Object</a>';
         }
@@ -118,6 +122,7 @@ function displayItem(record, prev_id, next_id, compound_object) {
         itemImage = itemDisplay; 
     }
 }
+
 
 
     /* function to add item metadata */
