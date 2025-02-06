@@ -94,9 +94,13 @@
         {% if include.title %}<h5 class="card-title">{{ include.title }}</h5>{% endif %}
         
         <div id="imageCarousel" class="carousel slide bg-dark rounded mb-3" data-bs-ride="carousel">
+            <!-- Indicators -->
             <div id="carouselIndicators" class="carousel-indicators"></div>
+            
+            <!-- Carousel Inner -->
             <div id="carouselInner" class="carousel-inner"></div>
 
+            <!-- Carousel Controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -158,4 +162,5 @@
     carousel.innerHTML = slides;
 })();
 </script>
+
 
