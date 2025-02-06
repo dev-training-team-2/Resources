@@ -35,25 +35,50 @@
     Set up carousel div
 {%- endcomment -%}
 <style>
-    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '450' }}px; }
-    
-.carousel-caption {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 10px;
-        text-align: center;
+    /* Style the carousel item to use flexbox for horizontal layout */
+    .carousel-item {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: center; /* Align the image and text vertically */
+        justify-content: space-between; /* Space between the image and the text */
+        height: 100%; /* Ensure carousel item takes full height */
     }
-                                   
+
+    /* Style the image to be on the left */
     .carousel-item img {
         object-fit: cover;
         object-position: center;
         height: 100%;
+        width: 40%; /* Image takes up 40% of the carousel item width */
+    }
+
+    /* Right side container (title and button) */
+    .carousel-item .carousel-caption {
+        display: flex;
+        flex-direction: column; /* Stack the title and button vertically */
+        align-items: flex-start; /* Align them to the left */
+        justify-content: flex-start;
+        width: 55%; /* The text section takes 55% of the width */
+        padding-left: 20px; /* Add some space between the image and text */
+        background: rgba(0, 0, 0, 0.5); /* Optional: add a background to improve readability */
+        color: white; /* White text color */
+    }
+
+    /* Title styling */
+    .carousel-item-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Button styling */
+    .carousel-caption .btn {
+        margin-top: auto; /* Push the button to the bottom */
+        margin-bottom: 10px;
+    }
+
+    /* Optional: Make the carousel full width and responsive */
+    .carousel-inner {
+        max-height: 450px;
     }
 </style>
 <div class="card mb-3">
