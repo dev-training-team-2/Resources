@@ -55,9 +55,9 @@ function displayItem(record, prev_id, next_id, compound_object) {
         // Check for source_link
         if (item.source_link && item.source_link.includes('/')) {
             itemDisplay = '<a href="' + item.source_link + '" target="_blank" rel="noopener" title="Resource Link">' + 
-                    '<img style="max-height: 600px; display:flex; justify-content: center; align-items: center;" src="' + findFileLink(item) + '" alt="' + item.title + '">' + 
+                    '<div style="display: flex; justify-content: center; align-items: center;">' + '<img style="max-height: 500px;" src="' + findFileLink(item) + '" alt="' + item.title + '">' + 
                   '</a>';
-            itemDownload = '<a href="' + item.source_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Resource Link">Resource Link</a>';
+            itemDownload = '<a href="' + item.source_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Resource Link">Resource Link</a></div>';
             
         } else {
             itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + findFileLink(item) + '"><img class="img-fluid" src="' + findFileLink(item) + '" alt="' + item.title + '">';
