@@ -82,6 +82,12 @@ function makeCard(obj) {
     if(thumbSrc){
         card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
     }
+
+    ///Add soucrce_link here
+    if(obj.source_link) {
+        resourceLink = '<p class="card-text">'<a href="'+ item.source_link +'" target="_blank" rel="noopener">'+ item.source_link +'</a>' 
+        card += '<strong>Resource Link:</strong></>p' + resourceLink + '<br>';
+    }
     
     // other fields Subject Buttons or fields in browser config.csv
     card += '<p class="card-text">';
@@ -102,11 +108,7 @@ function makeCard(obj) {
     }
     {% endunless %}{% endfor %}
 
-    ///Add soucrce_link here
-    if(obj.source_link) {
-        resourceLink = '<a href="'+ item.source_link +'" target="_blank" rel="noopener">'+ item.source_link +'</a>' 
-        card += '<strong>Resource Link:</strong> ' + resourceLink + '<br>';
-    }
+    
     
     card += '</p>';
     // media type
