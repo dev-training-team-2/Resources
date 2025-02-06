@@ -147,6 +147,13 @@ function displayItem(record, prev_id, next_id, compound_object) {
         {%- else -%}
         if (item[{{ f.field | jsonify }}]) { fields += '<dt class="field">{{ f.display_name }}:</dt> <dd class="field-value">{% if f.external_link == "true" %}<a href="' + item[{{ f.field | jsonify }}] + '" target="_blank" rel="noopener">' + item[{{ f.field | jsonify }}] + '</a>{% else %}' + item[{{ f.field | jsonify }}] + '{% endif %}</dd>'; }
         {% endif %}{% endfor %}
+
+         // Check if item has a source_link and if it does, add it
+    if (item.source_link) {
+        var resourceLink = '<p class="card-text"><a href="' + item.source_link + '" target="_blank" rel="noopener">Resource Link</a></p>';
+        fields += '<dt class="field">Source:</dt><dd class="field-value">' + resourceLink + '</dd>';
+    }                                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                                                                     
         fields += '</dl>';
         return fields;
     };
