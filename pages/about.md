@@ -10,8 +10,6 @@ credits: false
 
 {% include feature/jumbotron.html objectid="https://elizabethplyler.github.io/Training-Team-Resources/objects/feature.png" %}
 
-{% include feature/nav-menu.html sections="About the Collection;Ideas for Utilizing the Collection" %}
-
 ## About the Collection
 
 This site is a centralized platform that houses various public-facing resources specifically curated for the Training Team. The primary goal of this collection is to provide easy access to valuable information and materials that can support the team's training initiatives and enhance their overall learning experience. The collection consists of two main components:
