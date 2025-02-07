@@ -15,6 +15,7 @@ var items = [
     { 
         "title": {{ i.title | strip | jsonify }},
         "format": {% if i.format %}{{ i.format | jsonify }}{% else %}""{% endif %},
+        "display_img": {% if i.display_img %}{{ i.display_img | jsonify }}{% else %}""{% endif %},
         
         {% for f in fields %}
             {% if i[f.field] %}
