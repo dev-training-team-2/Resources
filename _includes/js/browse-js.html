@@ -74,13 +74,13 @@ function makeCard(obj) {
     var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2">  <div class="card" style="display: flex; flex-direction: column; height: 100%; justify-content: center;"><div style="text-align: center;">';
     // top image for photos
     if(imgSrc) {
-        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" style="height: 300px; width: auto;" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
+        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" style="height: auto; max-height: 300px; width: auto; max-width: 200px;" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
     }
     // title
     card += '<div class="card-body text-center"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
     // thumb for non-photo items
     if(thumbSrc){
-        card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" style="height: 300px; width: auto;" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
+        card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" style="height: auto; max-height: 300px; width: auto; max-width: 200px;" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
     }
 
     ///Add source_link here
