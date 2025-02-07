@@ -2,4 +2,6 @@ field,index,display
 title,true,true
 description,true,true
 subject,true,true
+item_information,true,true
+
 
