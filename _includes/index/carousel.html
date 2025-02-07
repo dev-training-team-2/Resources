@@ -35,6 +35,9 @@
     Set up carousel div
 {%- endcomment -%}
 <style>
+    
+    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '500' }}px; }
+                                   
     /* Set up the carousel item to split the image and content */
     .carousel-item .carousel-item-content {
         display: flex;
