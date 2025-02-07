@@ -38,6 +38,9 @@ var items = [
         {% if i.source_link %}
             "source_link": "{{ i.source_link }}",
         {% endif %}
+        {% if i.display_img %}
+            "display_img": "{{ i.display_img }}",
+        {% endif %}
     }
     {% unless forloop.last %},{% endunless %}
     {% endfor %}
@@ -53,6 +56,9 @@ function makeCard(obj) {
     // add images or thumb for objects based on format
     if(obj.youtube) {
         imgSrc = 'https://img.youtube.com/vi/' + obj.youtube + '/hqdefault.jpg';
+    } else if (obj.display_img){
+        imgSrc = obj.display_img;
+    }
     } else if (obj.format.includes("image")) {
         imgSrc = obj.filename;
     } else if (obj.format.includes("audio")) {
