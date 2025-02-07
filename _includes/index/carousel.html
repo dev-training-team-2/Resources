@@ -87,7 +87,7 @@
         // create slide
         slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }" style="display: flex; align-items: center; height: 100%;">
     <div class="carousel-img" style="flex: 0 0 60%; height: 100%; background-size: cover; background-position: center;">
-        <img class="d-block h-100 mx-auto" alt="image highlight" src="${itemImg}" style="height: 100%; width: 100%; object-fit: cover;">
+        <img class="d-block h-100 mx-auto" alt="image highlight" src="${itemImg}" style="max-height: 80%; max-width: 80%; object-fit: cover;">
     </div>
     <div class="carousel-caption" style="flex: 0 0 40%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 20px; background-color: rgba(0, 0, 0, 0.5);">
         <h5 class="carousel-item-title text-white py-2" style="color: white; font-size: 1.5em; margin-bottom: 10px;">${carouselItems[i][0]}</h5>
