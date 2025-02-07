@@ -35,46 +35,8 @@
     Set up carousel div
 {%- endcomment -%}
 <style>
-    
-    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '500' }}px; }
-                                   
-    /* Set up the carousel item to split the image and content */
-    .carousel-item .carousel-item-content {
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
-
-    /* 60% for the image and 40% for the content */
-    .carousel-item .carousel-item-image {
-        flex: 0 0 60%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-    }
-
-    .carousel-item .carousel-item-text {
-        flex: 0 0 40%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 20px;
-        background-color: rgba(0, 0, 0, 0.5); /* Optional: Add dark background for readability */
-    }
-
-    /* Optional: Style the title */
-    .carousel-item .carousel-item-title {
-        color: white;
-        font-size: 1.5em;
-        margin-bottom: 10px;
-    }
-
-    /* Optional: Style the button */
-    .carousel-item .carousel-item-btn {
-        align-self: flex-start;
-    }
+    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '300' }}px; }
 </style>
-
 <div class="card mb-3">
     {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
     <div class="card-body">
@@ -82,10 +44,10 @@
         
         <div id="imageCarousel" class="carousel slide bg-dark rounded mb-3" data-bs-ride="carousel">
             <div id="carouselIndicators" class="carousel-indicators">
-                <!-- Carousel Indicators -->
+                
             </div>
             <div id="carouselInner" class="carousel-inner">
-                <!-- Carousel Slides -->
+                
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -96,69 +58,45 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+            
     </div>
 </div>
-
+{%- comment -%}
+    add slides using JS to allow for randomizing slide show
+{%- endcomment -%}
 <script>
 (function(){
-    /* Get image and youtube items */
-    var imageItems = {{ site.data[site.metadata] | where_exp: 'item', 'item.objectid' | where_exp: 'item', 'item.format contains "image"' }};
-    var youtubeItems = {{ site.data[site.metadata] | where_exp: 'item', 'item.objectid' | where_exp: 'item', 'item.youtubeid' }};
-    
-    /* Combine image and youtube items */
-    var carouselItems = youtubeItems.length > 0 ? imageItems.concat(youtubeItems) : imageItems;
-
-    /* Filter carousel items based on parent-child condition */
-    {% if site.data.theme.carousel-child-objects == true %}
-        carouselItems = carouselItems.filter(item => item.title != null);
-    {% else %}
-        carouselItems = carouselItems.filter(item => item.parentid == null);
-    {% endif %}
-
-    /* Set carousel max */
-    var carouselMax = {{ include.max | default: 9 }};
-    var btnColor = "{{ include.btn-color | default: 'primary' }}";
-    var btnText = "{{ include.btn-text | default: 'View Item' }}";
-
-    /* Shuffle items */
-    carouselItems.sort(function() { return 0.5 - Math.random(); });
-
-    /* Add items to carousel */
+    /* add item data */
+    var carouselItems = [ {% for c in carousel-items %}[ {{ c.title | jsonify }}, {% if c.youtubeid %}"https://img.youtube.com/vi/{{ c.youtubeid }}/hqdefault.jpg"{% elsif c.filename contains '/' %}{{ c.filename | jsonify }}{% else %}{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.parentid %}"{{ c.parentid }}#{{ c.objectid }}"{% else %}"{{ c.objectid }}"{% endif %} ]{% unless forloop.last %}, {% endunless %}{% endfor %}];
+    /* shuffle items */
+    carouselItems.sort(function() { return 0.5 - Math.random() });
+ 
+    /* add items to carousel */
     var carousel = document.getElementById("carouselInner");
     var carouselIndicators = document.getElementById("carouselIndicators");
     var slides = "";
     var indicators = "";
-    
-    for (var i = 0; i < Math.min(carouselItems.length, carouselMax); i++) {
-        var item = carouselItems[i];
-        
-        // Calculate item image location
-        var itemImg = item.youtubeid ? `https://img.youtube.com/vi/${item.youtubeid}/hqdefault.jpg` : item.filename;
-        
-        // Calculate item link
-        var itemLink = "{{ '/item.html' | relative_url | append: '?id=' }}" + (item.parentid ? `${item.parentid}#${item.objectid}` : item.objectid);
-        
-        // Create indicator
-        var indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i}" ${i === 0 ? 'class="active" aria-current="true"' : ''} aria-label="Slide ${i}"></button>`;
-        
-        // Create slide with 60% image on the left and 40% content on the right
-        var slide = `<div class="carousel-item py-2${i === 0 ? ' active' : ''}">
-            <div class="carousel-item-content">
-                <div class="carousel-item-image" style="background-image: url('${itemImg}');"></div>
-                <div class="carousel-item-text">
-                    <h5 class="carousel-item-title">${item.title}</h5>
-                    <a href="${itemLink}" class="btn btn-sm btn-${btnColor} carousel-item-btn">${btnText}</a>
-                </div>
-            </div>
-        </div>`;
-        
+    var i;
+    for (i=0; i < {{ carousel-items | size | at_most: carousel-max }}; i++) {
+        // calculate item image location
+        itemImg = carouselItems[i][1];
+        // calculate item link
+        itemLink = "{{ '/item.html' | relative_url | append: '?id=' }}" + carouselItems[i][2];
+        // create indicator 
+        indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i.toString()}" ${ i == 0 ? 'class="active" aria-current="true" ' : '' }aria-label="Slide ${i.toString()}"></button>`;
+        // create slide
+        slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
+            <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
+            <div class="carousel-caption">
+                <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
+                <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
+            </div></div>`;
         slides += slide;
         indicators += indicator;
     }
-    
-    // Add indicators and slides to the carousel
+    // add indicators to page 
     carouselIndicators.innerHTML = indicators;
+    // add slides to the page
     carousel.innerHTML = slides;
 })();
 </script>
-
