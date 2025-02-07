@@ -36,17 +36,19 @@
 {%- endcomment -%}
 <style>
     #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '300' }}px; }
+
+    
 </style>
-<div class="card mb-3">
+<div class="card mb-3" style="display:flex; align-items: center; height: 100%;">
     {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
-    <div class="card-body">
+    <div class="card-body" >
         {% if include.title %}<h5 class="card-title">{{ include.title }}</h5>{% endif %}
         
         <div id="imageCarousel" class="carousel slide bg-dark rounded mb-3" data-bs-ride="carousel">
-            <div id="carouselIndicators" class="carousel-indicators">
+            <div id="carouselIndicators" class="carousel-indicators" style="flex: 0 0 40%; display: flex; flex-direction: column; justify-content: center; padding: 20px; background-color: rgba(0, 0, 0, 0.5); /* Optional: Add dark background for readability */">
                 
             </div>
-            <div id="carouselInner" class="carousel-inner">
+            <div id="carouselInner" class="carousel-inner" style="flex: 0 0 60%; height: 100%; background-size: cover; background-position: center;">
                 
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
