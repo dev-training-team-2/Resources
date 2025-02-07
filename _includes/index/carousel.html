@@ -35,7 +35,7 @@
     Set up carousel div
 {%- endcomment -%}
 <style>
-    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '300' }}px; }
+    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '500' }}px; }
 </style>
 <div class="card mb-3">
     {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
@@ -85,20 +85,12 @@
         // create indicator 
         indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i.toString()}" ${ i == 0 ? 'class="active" aria-current="true" ' : '' }aria-label="Slide ${i.toString()}"></button>`;
         // create slide
-        slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }" style="display: flex; align-items: center; height: 100%;">
-       
-         <!-- Image section (left 60%) -->
-    <div class="carousel-img" style="flex: 0 0 60%; height: 100%; background-size: cover; background-position: center;">
-        <img class="d-block h-100 mx-auto" alt="image highlight" src="${itemImg}" style="max-height: 80%; max-width: 80%; object-fit: cover;">
-    </div>
-    
-     <!-- Caption section (right 40%) -->
-    <div class="carousel-caption" style="flex: 0 0 40%; height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 20px; background-color: rgba(0, 0, 0, 0.5); position: relative; overflow: hidden;">
-        <h5 class="carousel-item-title text-white py-2" style="color: white; font-size: 1.5em; margin-bottom: 10px;">${carouselItems[i][0]}</h5>
-        <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}" style="align-self: flex-start;">{{ btn-text }}</a>
-    </div>
-</div>
-`;
+        slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
+            <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
+            <div class="carousel-caption">
+                <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
+                <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
+            </div></div>`;
         slides += slide;
         indicators += indicator;
     }
