@@ -1,3 +1,39 @@
+{% comment %} 
+
+    Image item carousel.
+    This include adds a Bootstrap Carousel component populated with randomly selected image items, designed with index page in mind. 
+    https://getbootstrap.com/docs/5.1/components/carousel/
+
+    E.G. --> {% include index/carousel.html title="Sample Items" height=450 %}
+
+    Options:
+
+    - "height" - the height of the carousel in px, just give the number (optional, default 300)
+    - "title" - card title text inside card content area (optional)
+    - "header" = card header text in bar above card content (optional)
+    - "max" = maximum images selected for slide show (optional, default 9. Do not make too big!)
+    - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "primary")
+    - "btn-text" - the label used in the link btn to view the carousel item (optional, default "View Item")
+    
+{%- endcomment -%}
+
+{%- assign image-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.format contains 'image'" -%}
+{%- assign youtube-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.youtubeid" -%}
+{%- if youtube-items -%}{%- assign carousel-items = image-items | concat: youtube-items -%}{%- else -%}{%- assign carousel-items = image-items -%}{% endif %}
+
+{% if site.data.theme.carousel-child-objects == true %}
+{%- assign carousel-items = carousel-items | where_exp: 'item','item.title != nil' -%}
+{% else %}
+{%- assign carousel-items = carousel-items | where_exp: 'item','item.parentid == nil' -%}
+{% endif %}
+
+{%- assign carousel-max = include.max | default: 9 -%}
+{%- assign btn-color = include.btn-color | default: "primary" -%}
+{%- assign btn-text = include.btn-text | default: "View Item" -%}
+
+{%- comment -%}
+    Set up carousel div
+{%- endcomment -%}
 <style>
     /* Set up the carousel item to split the image and content */
     .carousel-item .carousel-item-content {
