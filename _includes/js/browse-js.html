@@ -71,16 +71,18 @@ function makeCard(obj) {
         thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
     }  
     // start card
-    var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card">';
+    var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2"><div class="card" style="height: 600px;  overflow-y: auto;”>';
     // top image for photos
     if(imgSrc) {
-        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
+        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" style="max-height: 300px; width: auto; display: block; margin-left:auto; margin-right:auto;"
+ data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
     }
     // title
     card += '<div class="card-body text-center"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
     // thumb for non-photo items
     if(thumbSrc){
-        card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
+        card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" style="max-height: 300px; width: auto; display: block; margin-left:auto; margin-right:auto;"
+data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
     }
 
     ///Add source_link here
