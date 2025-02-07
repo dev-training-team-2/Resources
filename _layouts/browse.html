@@ -39,3 +39,23 @@ custom-foot: js/browse-js.html
 </div>
 
 <div class="row" id="browseItems"></div>
+
+<script>
+    window.addEventListener('load', function () {
+      const cards = document.querySelectorAll('.card');
+      let maxHeight = 0;
+  
+      // Find the maximum height
+      cards.forEach(function (card) {
+        const cardHeight = card.offsetHeight;
+        if (cardHeight > maxHeight) {
+          maxHeight = cardHeight;
+        }
+      });
+  
+      // Apply the max height to all cards
+      cards.forEach(function (card) {
+        card.style.height = `${maxHeight}px`;
+      });
+    });
+  </script>
