@@ -55,12 +55,12 @@ function displayItem(record, prev_id, next_id, compound_object) {
         // Check for source_link
         if (item.source_link && item.source_link.includes('/')) {
             itemDisplay = '<a href="' + item.source_link + '" target="_blank" rel="noopener" title="Resource Link">' + 
-                    '<div style="display: block; justify-content: center; align-items: center;">' + '<img style="max-height: 500px;" src="' + findFileLink(item) + '" alt="' + item.title + '">' + 
+                    '<div style="display: block; justify-content: center; align-items: center;">' + '<img style="max-height: 500px;" src="' + item.display_img + '" alt="' + item.title + '">' + 
                   '</a></div>';
             itemDownload = '<a href="' + item.source_link + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Resource Link">Resource Link</a>';
             
         } else {
-            itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + findFileLink(item) + '"><img class="img-fluid" src="' + findFileLink(item) + '" alt="' + item.title + '">';
+            itemDisplay = '<a class="spotlight gallery-img" data-download="true" href="' + item.source_link + '"><img class="img-fluid" src="' + item.display_img + '" alt="' + item.title + '">';
             itemDownload = '<a href="' + findFileLink(item) + '" target="_blank" rel="noopener" class="btn btn-outline-primary" title="Object download">Download ' + item.format.split("/").pop().toUpperCase() + '</a>';
         }
     } 
