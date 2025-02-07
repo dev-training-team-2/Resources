@@ -86,12 +86,16 @@
         // create indicator 
         indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i.toString()}" ${ i == 0 ? 'class="active" aria-current="true" ' : '' }aria-label="Slide ${i.toString()}"></button>`;
         // create slide
-        slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
-            <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
-            <div class="carousel-caption">
-                <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
-                <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
-            </div></div>`;
+           // Create slide with 60% image on the left and 40% content on the right
+        var slide = `<div class="carousel-item py-2${i === 0 ? ' active' : ''}" style="height: {{ include.height | remove: 'px' | strip | default: '300' }}px;">
+            <div class="carousel-item-content" style="display: flex; height: 100%;">
+                <div class="carousel-item-image" style="flex: 0 0 60%; background-image: url('${itemImg}'); background-size: cover; background-position: center; height: 100%;"></div>
+                <div class="carousel-item-text" style="flex: 0 0 40%; display: flex; flex-direction: column; justify-content: center; padding: 20px; background-color: rgba(0, 0, 0, 0.5);">
+                    <h5 class="carousel-item-title" style="color: white; font-size: 1.5em; margin-bottom: 10px;">${item.title}</h5>
+                    <a href="${itemLink}" class="btn btn-sm btn-${btnColor} carousel-item-btn" style="align-self: flex-start;">${btnText}</a>
+                </div>
+            </div>
+        </div>`;
         slides += slide;
         indicators += indicator;
     }
