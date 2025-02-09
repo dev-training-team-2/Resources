@@ -1,5 +1,4 @@
-{% comment %}
-    Image item carousel.
+<!-- Image item carousel.
     This include adds a Bootstrap Carousel component populated with randomly selected image items, designed with index page in mind. 
     https://getbootstrap.com/docs/5.1/components/carousel/
 
@@ -12,9 +11,8 @@
     - "header" = card header text in bar above card content (optional)
     - "max" = maximum images selected for slide show (optional, default 9. Do not make too big!)
     - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "primary")
-    - "btn-text" - the label used in the link btn to view the carousel item (optional, default "View Item")
-    
-{%- endcomment -%}
+    - "btn-text" - the label used in the link btn to view the carousel item (optional, default "View Item") 
+-->
 
 {%- assign image-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.format contains 'image'" -%}
 {%- assign youtube-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.youtubeid" -%}
@@ -30,9 +28,7 @@
 {%- assign btn-color = include.btn-color | default: "secondary" -%}
 {%- assign btn-text = include.btn-text | default: "View Item" -%}
 
-{% comment %}
-    Set up carousel div
-{% endcomment %}
+<!-- Set up carousel div -->
 <style>
     #imageCarousel .carousel-item {
         display: flex;
@@ -86,9 +82,7 @@
     </div>
 </div>
 
-{% comment %}
-    add slides using JS to allow for randomizing slide show
-{% endcomment %}
+<!-- add slides using JS to allow for randomizing slide show -->
 <script>
 (function(){
     /* add item data */
@@ -128,4 +122,3 @@
     carousel.innerHTML = slides;
 })();
 </script>
-{% endcomment %}
