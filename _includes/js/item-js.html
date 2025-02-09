@@ -36,7 +36,6 @@ function displayItem(record, prev_id, next_id, compound_object) {
     } else {
         itemFormat = record.format.replace("_", " ").toUpperCase();
     }
-    //document.getElementById("item-format").innerHTML = itemFormat;
     document.getElementById("item-title").innerHTML = record.format.includes('record') ? objectTitle : objectTitle + '<a href="#item-metadata" class="ms-5 btn btn-sm btn-outline-dark small">Item Info <svg class="bi icon-sprite" role="img" aria-label="Jump to Item Info"><use xlink:href="{{ "/assets/lib/cb-icons.svg" | relative_url }}#arrow-down"/></svg></a>';
     
     /* add object */ 
