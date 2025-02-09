@@ -1,4 +1,6 @@
-<!-- Image item carousel.
+{% comment %} 
+
+    Image item carousel.
     This include adds a Bootstrap Carousel component populated with randomly selected image items, designed with index page in mind. 
     https://getbootstrap.com/docs/5.1/components/carousel/
 
@@ -6,13 +8,14 @@
 
     Options:
 
-    - "height" - the height of the carousel in px, just give the number (optional, default 300)
+    - "height" - the height of the carousel in px, just give the number (optional, default 450)
     - "title" - card title text inside card content area (optional)
     - "header" = card header text in bar above card content (optional)
     - "max" = maximum images selected for slide show (optional, default 9. Do not make too big!)
     - "btn-color" - a bootstrap color class to theme the buttons. Can be any bootstrap template color (e.g. info, success) or outline (e.g. outline-info, outline-success), including colors created in config-theme-colors. (optional, default "primary")
-    - "btn-text" - the label used in the link btn to view the carousel item (optional, default "View Item") 
--->
+    - "btn-text" - the label used in the link btn to view the carousel item (optional, default "View Item")
+    
+{%- endcomment -%}
 
 {%- assign image-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.format contains 'image'" -%}
 {%- assign youtube-items = site.data[site.metadata ] | where_exp: 'item', 'item.objectid' | where_exp: "item","item.youtubeid" -%}
@@ -25,37 +28,14 @@
 {% endif %}
 
 {%- assign carousel-max = include.max | default: 9 -%}
-{%- assign btn-color = include.btn-color | default: "secondary" -%}
+{%- assign btn-color = include.btn-color | default: "primary" -%}
 {%- assign btn-text = include.btn-text | default: "View Item" -%}
 
-<!-- Set up carousel div -->
+{%- comment -%}
+    Set up carousel div
+{%- endcomment -%}
 <style>
-    #imageCarousel .carousel-item {
-        display: flex;
-        height: {{ include.height | remove: 'px' | strip | default: '300' }}px;
-    }
-
-    #imageCarousel .carousel-item img {
-        max-height: 100%;
-        width: auto;
-        flex-shrink: 0;
-    }
-
-    #imageCarousel .carousel-caption {
-        background-color: rgba(0, 0, 0, 0.5);  /* Semi-transparent background */
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 15px;
-        width: 50%;  /* Set width for caption */
-        height: 100%;
-        flex-grow: 1;
-        position: absolute;
-        right: 0;  /* Align caption to the right */
-        bottom: 0;
-        top: 0;
-    }
+    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '300' }}px; }
 </style>
 <div class="card mb-3">
     {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
@@ -81,8 +61,9 @@
             
     </div>
 </div>
-
-<!-- add slides using JS to allow for randomizing slide show -->
+{%- comment -%}
+    add slides using JS to allow for randomizing slide show
+{%- endcomment -%}
 <script>
 (function(){
     /* add item data */
@@ -105,15 +86,11 @@
         indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i.toString()}" ${ i == 0 ? 'class="active" aria-current="true" ' : '' }aria-label="Slide ${i.toString()}"></button>`;
         // create slide
         slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
-            <div class="d-flex h-100">
-                <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
-                
-                <div class="carousel-caption">
-                    <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
-                    <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
-                </div>
-            </div>
-        </div>`;
+            <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
+            <div class="carousel-caption">
+                <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
+                <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
+            </div></div>`;
         slides += slide;
         indicators += indicator;
     }
