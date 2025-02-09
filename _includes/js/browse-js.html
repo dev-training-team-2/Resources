@@ -71,7 +71,7 @@ function makeCard(obj) {
         thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
     }  
     // start card
-    var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2">  <div class="card" style="display: flex; flex-direction: column; height: 100%;"><div style="flex-grow: 1; display: flex; justify-content: center; align-items: center;">';
+    var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2">  <div class="card" style="display: flex; flex-direction: column; height: 512px;"><div style="flex-grow: 1; display: flex; justify-content: center; align-items: center;">';
     // top image for photos
     if(imgSrc) {
         card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" style="height: auto; max-height: 300px; width: auto; max-width: 300px;" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
