@@ -107,10 +107,11 @@
         slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
             <div class="d-flex h-100">
                 <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
+                </div>
                 <div class="carousel-caption">
                     <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
                     <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
-                </div>
+                
             </div>
         </div>`;
         slides += slide;
