@@ -1,5 +1,4 @@
-{% comment %} 
-
+{% comment %}
     Image item carousel.
     This include adds a Bootstrap Carousel component populated with randomly selected image items, designed with index page in mind. 
     https://getbootstrap.com/docs/5.1/components/carousel/
@@ -31,11 +30,36 @@
 {%- assign btn-color = include.btn-color | default: "secondary" -%}
 {%- assign btn-text = include.btn-text | default: "View Item" -%}
 
-{%- comment -%}
+{% comment %}
     Set up carousel div
-{%- endcomment -%}
+{% endcomment %}
 <style>
-    #imageCarousel .carousel-item { height: {{ include.height | remove: 'px' | strip | default: '300' }}px; }
+    #imageCarousel .carousel-item {
+        display: flex;
+        height: {{ include.height | remove: 'px' | strip | default: '300' }}px;
+    }
+
+    #imageCarousel .carousel-item img {
+        max-height: 100%;
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    #imageCarousel .carousel-caption {
+        background-color: rgba(0, 0, 0, 0.5);  /* Semi-transparent background */
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        width: 50%;  /* Set width for caption */
+        height: 100%;
+        flex-grow: 1;
+        position: absolute;
+        right: 0;  /* Align caption to the right */
+        bottom: 0;
+        top: 0;
+    }
 </style>
 <div class="card mb-3">
     {% if include.header %}<h5 class="card-header">{{ include.header }}</h5>{% endif %}
@@ -61,9 +85,10 @@
             
     </div>
 </div>
-{%- comment -%}
+
+{% comment %}
     add slides using JS to allow for randomizing slide show
-{%- endcomment -%}
+{% endcomment %}
 <script>
 (function(){
     /* add item data */
@@ -86,11 +111,14 @@
         indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i.toString()}" ${ i == 0 ? 'class="active" aria-current="true" ' : '' }aria-label="Slide ${i.toString()}"></button>`;
         // create slide
         slide = `<div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
-            <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
-            <div class="carousel-caption">
-                <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
-                <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
-            </div></div>`;
+            <div class="d-flex h-100">
+                <img class="d-block h-100 mx-auto lazyload" alt="image highlight" data-src="${itemImg}">
+                <div class="carousel-caption">
+                    <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
+                    <a href="${itemLink}" class="btn btn-sm btn-{{ btn-color }}">{{ btn-text }}</a>
+                </div>
+            </div>
+        </div>`;
         slides += slide;
         indicators += indicator;
     }
@@ -100,3 +128,4 @@
     carousel.innerHTML = slides;
 })();
 </script>
+{% endcomment %}
