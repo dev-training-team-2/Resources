@@ -45,25 +45,21 @@ custom-foot: js/browse-js.html
       const cards = document.querySelectorAll('.card');
       let maxHeight = 0;
   
-      // Find the maximum height of the card content (not the flexbox container height)
+      // Find the maximum height of the card content (image + text)
       cards.forEach(function (card) {
-        const cardBody = card.querySelector('.card-body');
-        const image = card.querySelector('img');
+        const cardHeight = card.offsetHeight;  // Get the full height of the card (including image and text)
         
-        // Reset the height of the card before calculating the new height
-        card.style.height = 'auto';
-  
-        const cardHeight = cardBody.offsetHeight + image.offsetHeight;
-        
+        // Find the maximum height of all cards
         if (cardHeight > maxHeight) {
           maxHeight = cardHeight;
         }
       });
   
-      // Apply the max height to all cards (if necessary)
+      // Apply the max height to all cards
       cards.forEach(function (card) {
-        card.style.height = `${maxHeight}px`;
+        card.style.height = `${maxHeight}px`;  // Set the max height to all cards
       });
     });
   </script>
+  
   
