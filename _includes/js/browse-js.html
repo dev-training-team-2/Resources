@@ -77,7 +77,7 @@ function makeCard(obj) {
         card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" style="height: auto; max-height: 300px; width: auto; max-width: 300px;" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
     }
     // title
-    card += '<div class="card-body text-center style="margin-top:auto;"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
+    card += '<div class="card-body text-center style="display: flex; flex-direction: column; justify-content: flex-end; flex-grow: 0;"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
     // thumb for non-photo items
     if(thumbSrc){
         card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" style="height: auto; max-height: 300px; width: auto; max-width: 300px;" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
