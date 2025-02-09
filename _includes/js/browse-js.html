@@ -80,17 +80,17 @@ function makeCard(obj) {
     card += ' <!-- Text at the bottom --><div class="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; flex-grow: 0;"> <h3 class="card-title h4"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
     // thumb for non-photo items
     if(thumbSrc){
-        card += '<p><a href="' + itemHref + '"><img class="lazyload w-50" style="height: auto; max-height: 300px; width: auto; max-width: 300px;" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
+        card += '<p style="text-align:center;"><a href="' + itemHref + '"><img class="lazyload w-50" style="height: auto; max-height: 300px; width: auto; max-width: 300px;" data-src="' + thumbSrc + '" alt="Image of ' + obj.title + '"></a></p>';
     }
 
     ///Add source_link here
     if(obj.source_link) {
-        resourceLink = '<p class="card-text"><a href="'+ obj.source_link +'" target="_blank" rel="noopener">Resource Link</a></p>' 
+        resourceLink = '<p class="card-text" style="text-align:center;"><a href="'+ obj.source_link +'" target="_blank" rel="noopener">Resource Link</a></p>' 
         card += resourceLink + '<br>';
     }
     
     // other fields Subject Buttons or fields in browser config.csv
-    card += '<p class="card-text">';
+    card += '<p class="card-text" style="text-align:center;">';
     {% for f in fields %}{% unless f.hidden == 'true' %}
     if(obj[{{ f.field | jsonify }}]){
     {% if f.display_name %}card += '<strong>{{ f.display_name }}:</strong> ';{% endif %}
