@@ -35,7 +35,12 @@
     Set up carousel div
 {%- endcomment -%}
 <style>
-    #imageCarousel .carousel-item .carousel-img { height: {{ include.height | remove: 'px' | strip | default: '300' }}px; }
+    #imageCarousel .carousel-item .carousel-img { 
+        height: {{ include.height | remove: 'px' | strip | default: '300' }}px; 
+        display: flex;
+        justify-content: flex-end; 
+        flex-grow: 0;
+    }
     
     /* Ensure the image container has a fixed height */
     .carousel-item .carousel-img {
