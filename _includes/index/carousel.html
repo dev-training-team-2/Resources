@@ -35,50 +35,63 @@
     Set up carousel div
 {%- endcomment -%}
 <style>
-   /* Main carousel item container */
-.carousel-item {
+    #imageCarousel .carousel-item .carousel-img { 
+        height: {{ include.height | remove: 'px' | strip | default: '300' }}px; 
+        display: flex;
+    }
+    
+    .carousel-left {
+  flex: 1; /* Allow the image to take up equal space */
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Center the image horizontally */
 }
-
-/* Left section - 60% width */
-.carousel-left {
-  flex: 0 0 60%;
-  display: flex;
-  justify-content: center;
-}
-
-/* Image container with dynamic height using CSS variables */
-.carousel-img {
-  height: var(--carousel-img-height, 300px); /* Default height is 300px */
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* Image styling */
-.carousel-img img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover; /* Make image cover the container */
-}
-
-/* Right section - 40% width */
 .carousel-right {
-  flex: 0 0 40%;
-  padding-left: 20px;
+  flex: 1; /* Take up equal space on the right side */
+  padding-left: 20px; /* Optional padding for spacing */
 }
 
-/* Styling for the caption */
-.carousel-caption {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-}
 
+    /* Ensure the image container has a fixed height */
+    .carousel-item .carousel-img {
+        height: 400px; /* Restrict image height */
+        overflow: hidden; /* Hide any overflow */
+        width: 100%; /* Full width of the container */
+    }
+
+    /* Ensure the image fills its container */
+    .carousel-item .carousel-img img {
+        height: 100%;
+        width: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Cover the container, cropping if necessary */
+    }
+
+    /* Make sure the carousel has a solid background */
+    .carousel-item {
+        background-color: #1b365d; /* Dark background color */
+    }
+
+    /* Styling for the caption on the right */
+    .carousel-caption {
+        background-color: black; /* Semi-transparent background for readability */
+        color: white; /* White text for better contrast */
+    }
+
+    /* Styling for the entire carousel row */
+    .carousel-item .d-flex {
+        display: flex;
+        flex-direction: row; /* Place image on the left and caption on the right */
+        align-items: center; /* Vertically align content */
+    }
+
+    /* Ensure the caption section has padding for better spacing */
+    .carousel-caption .py-2 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .carousel-caption a {
+        margin-top: 10px; /* Add space between title and button */
+    }
 
 
 </style>
@@ -110,20 +123,6 @@
     add slides using JS to allow for randomizing slide show
 {%- endcomment -%}
 <script>
-// Set the dynamic height of the carousel image container
-function setImageHeight(newHeight) {
-  // Select the carousel container
-  const carouselItem = document.querySelector('.carousel-item');
-
-  // Set the height of the image container using CSS variable
-  carouselItem.style.setProperty('--carousel-img-height', `${newHeight}px`);
-}
-
-// Example: Set the image height to 500px
-setImageHeight(300);
-
-
-
 (function(){
     /* add item data */
     var carouselItems = [ {% for c in carousel-items %}[ {{ c.title | jsonify }}, {% if c.youtubeid %}"https://img.youtube.com/vi/{{ c.youtubeid }}/hqdefault.jpg"{% elsif c.filename contains '/' %}{{ c.filename | jsonify }}{% else %}{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.parentid %}"{{ c.parentid }}#{{ c.objectid }}"{% else %}"{{ c.objectid }}"{% endif %} ]{% unless forloop.last %}, {% endunless %}{% endfor %}];
