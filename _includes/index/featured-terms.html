@@ -37,7 +37,7 @@
 {%- assign items = site.data[site.metadata] | where_exp: 'item', 'item.objectid'| where_exp: 'item','item.parentid == nil' -%}
 {% endif %}
 {% assign rawTerms = items | map: termsField | join: ";" | split: ";" %}
-{% capture terms %}{% for t in rawTerms %}{% if t != "" and t != " " %}{{ t | strip | downcase }};{% endif %}{% endfor %}{% endcapture %}
+{% capture terms %}{% for t in rawTerms %}{% if t != "" and t != " " %}{{ t | strip }};{% endif %}{% endfor %}{% endcapture %}
 {% assign terms = terms | split: ";" %}
 {% assign uniqueTerms = terms | uniq | sort %}
 {% capture termsCount %}{% for unique in uniqueTerms %}{% assign count = terms | where_exp: 'item', 'item == unique' | size %}{{ count | prepend: '0000' | slice: -4, 4 }}||{{ unique | capitalize }}{% unless forloop.last %};{% endunless %}{% endfor %}{% endcapture %}
