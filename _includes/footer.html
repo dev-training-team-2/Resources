@@ -1,10 +1,12 @@
+{% comment %}
 {{ site.title }} <span> - </span>
 {{ site.description }}
-	•	{%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nil' -%} {% for nav in navItems %}
-	•	{% if nav.stub %} {{ nav.display_name }} {%- else -%} {% assign childStub = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nav.display_name' | first %} {{ nav.display_name }} {% endif %}
-	•	{%- endfor -%}
+    • {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nil' -%} {% for nav in navItems %}
+    • {% if nav.stub %} {{ nav.display_name }} {%- else -%} {% assign childStub = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nav.display_name' | first %} {{ nav.display_name }} {% endif %}
+    • {%- endfor -%}
 {% if site.organization-logo-nav %}
 {% endif %}
-Last updated {{ site.time | date: '%Y' }}
+{% endcomment %}
 
 {% include imb-footer.html %}
+Last updated {{ site.time | date: '%Y' }}
