@@ -41,10 +41,10 @@ metadata: content
 # Site/Organization Branding 
 #   Uncomment these and enter information for your organization (replacing the CDIL links and name below) if you'd like to brand your site with a logo
 #
-# organization-name: "Center for Digital Inquiry and Learning (CDIL)"
-# organization-link: https://cdil.lib.uidaho.edu/
-# organization-logo-banner: https://cdil.lib.uidaho.edu/storying-extinction/assets/img/cdil.png
-# organization-logo-nav: https://cdil.lib.uidaho.edu/assets/img/logo.png
+ organization-name: "International Missions Board (IBM)"
+ organization-link: https://imb.org/
+ organization-logo-banner: https://www.imb.org/wp-content/uploads/2025/02/Logo.svg
+ organization-logo-nav: https://www.imb.org/wp-content/themes/imb/img/hp-form-icon.svg
 
 ##########
 # ROBOTS EXCLUDE
