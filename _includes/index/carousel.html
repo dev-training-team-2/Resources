@@ -67,8 +67,8 @@
 
     /* Styling for the caption on the right */
     .carousel-caption {
-        background-color: black; 
-        color: white; /* White text for better contrast */
+        background-color: #707372; 
+        color: black; /* White text for better contrast */
         border-radius: 15px; /* Rounded corners */
     }
 
@@ -147,7 +147,7 @@
             <img class="d-block h-100 mx-auto lazyload" alt="image highlight" style= "border-radius: 15px;" data-src="${itemImg}">
         </div></div>
             <div class="carousel-right"><div class="carousel-caption">
-                <h5 class="carousel-item-title text-white py-2">${carouselItems[i][0]}</h5>
+                <h5 class="carousel-item-title py-2">${carouselItems[i][0]}</h5>
                 <a href="${itemLink}" class="btn btn-sm btn-secondary m-1 text-wrap">{{ btn-text }}</a>
             </div></div></div>`;
         slides += slide;
