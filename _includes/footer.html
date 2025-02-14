@@ -4,8 +4,7 @@
 	•	{% if nav.stub %} {{ nav.display_name }} {%- else -%} {% assign childStub = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nav.display_name' | first %} {{ nav.display_name }} {% endif %}
 	•	{%- endfor -%}
 {% if site.organization-logo-nav %}
-￼
 {% endif %}
 Last updated {{ site.time | date: '%Y' }}
-{% include imb-footer.html %}
 
+{% include imb-footer.html %}
