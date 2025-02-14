@@ -38,6 +38,7 @@
     #imageCarousel .carousel-item .carousel-img { 
         height: {{ include.height | remove: 'px' | strip | default: '300' }}px; 
         display: flex;
+        border-radius: 15px; /* Rounded corners */
     }
     
     .carousel-left {
