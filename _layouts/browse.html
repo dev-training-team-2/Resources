@@ -56,7 +56,7 @@ custom-foot: js/browse-js.html
         cards.forEach(function (card) {
           const cardHeight = card.offsetHeight;  // Get the full height of the card (image + text)
           if (cardHeight > maxHeight) {
-            maxHeight = cardHeight;
+            maxHeight = cardHeight + 5;  // add 10px to the height to allow for padding
           }
         });
   

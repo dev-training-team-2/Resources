@@ -38,7 +38,6 @@
     #imageCarousel .carousel-item .carousel-img { 
         height: {{ include.height | remove: 'px' | strip | default: '300' }}px; 
         display: flex;
-        border-radius: 40px; /* Rounded corners */
     }
     
     .carousel-left {
@@ -65,9 +64,10 @@
         
     }
 
-    /* Styling for the caption on the right */
+    /* Styling for the caption on the bottom of screen ISSUE TO FIX: This background-color is showing up in the rounded corners of carousel-inner */
     .carousel-caption {
         background-color: #1b365d;
+        overflow: hidden; /* Hide any overflow */
         color: white; /* White text for better contrast */
         border-radius: 15px; /* Rounded corners */
     }
@@ -88,10 +88,18 @@
     .carousel-caption a {
         margin-top: 10px; /* Add space between title and button */
     }
+
+    /* Styling for the carousel itself, ensuring rounded corners */
     .carousel-inner {
-        border-radius: 100px; /* Rounded corners */
-        
-        
+        border-radius: 40px; /* Rounded corners */
+        border-top-right-radius: 120px; /* Round the top-right corner more */
+        overflow: hidden; /* Hide any overflow */
+    }
+    /* Styling for carousel items, ensuring overflow issues are prevented */
+    .carousel-item {
+        background-color: #f8f5f1; /* Background color for carousel items */
+        overflow: hidden; /* Prevent any content from overflowing the rounded corners */
+        border-radius: 60px; /* Apply the same rounding to items */
     }
 
 
@@ -101,21 +109,22 @@
     <div class="card-body" style="border-radius: 15px;">
         {% if include.title %}<h5 class="card-title">{{ include.title }}</h5>{% endif %}
         
-        <div id="imageCarousel" class="carousel slide bg-dark rounded mb-3" data-bs-ride="carousel" >
+        <div id="imageCarousel" class="carousel slide rounded mb-3" data-bs-ride="carousel" >
             <div id="carouselIndicators" class="carousel-indicators">
                 
             </div>
             <div id="carouselInner" class="carousel-inner" >
                 
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+            </div><button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev" style="position: absolute; top: 50%; transform: translateY(-50%); left: 10px; background-color: #1b365d; border-radius: 50%; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5rem; border: none;  z-index: 1;">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+            
+            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next" style="position: absolute; top: 50%; transform: translateY(-50%); right: 10px; background-color: #1b365d; border-radius: 50%; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.5rem; border: none;  z-index: 1;">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+            
         </div>
             
     </div>

@@ -1,6 +1,8 @@
 display_name,stub,dropdown_parent
-Home,/
-Browse,/browse.html
-Subjects,/subjects.html
-Data,/data.html
-About,https://www.imb.org/training/
+IMB Home,https://www.imb.org
+Training Home,https://www.imb.org/training/
+Resource Home,/
+Browse Resources,/browse.html
+Resource Subjects,/subjects.html
+Resource Data,/data.html
+About the Resource Page,/about.html
