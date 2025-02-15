@@ -6954,7 +6954,7 @@ fieldset:disabled .btn {
 .carousel-control-next:hover,
 .carousel-control-prev:focus,
 .carousel-control-prev:hover {
-    color: #fff;
+    color: #000;
     text-decoration: none;
     outline: 0;
     opacity: .9
