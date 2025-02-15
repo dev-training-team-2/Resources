@@ -17,24 +17,24 @@
                 {%- assign navItems = site.data.config-nav | where_exp: 'item', 'item.display_name' | where_exp: 'item', 'item.dropdown_parent == nil' -%}
                 {% for nav in navItems %}
                     {% if nav.stub %}
-                    <!-- Handle Local Navigation (Button Style) -->
+                    <!-- Handle Local Navigation -->
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light{% if page.url == nav.stub %} active{% endif %}" href="{{ nav.stub | relative_url }}">{{ nav.display_name }}</a>
+                        <a class="nav-link{% if page.url == nav.stub %} active{% endif %}" href="{{ nav.stub | relative_url }}">{{ nav.display_name }}</a>
                     </li>
                     {% else %}
                     <!-- Handle Dropdown Navigation with Potential External Links -->
                     <li class="nav-item dropdown">
                         {% assign navChildren = site.data.config-nav | where_exp: 'item', 'item.dropdown_parent == nav.display_name' %}
                         {%- assign childStubs = navChildren | map: 'stub' -%}
-                        <a class="nav-link dropdown-toggle btn btn-outline-light{% if childStubs contains page.url %} active{% endif %}" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ nav.display_name }}</a>
+                        <a class="nav-link dropdown-toggle{% if childStubs contains page.url %} active{% endif %}" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ nav.display_name }}</a>
                         <div class="dropdown-menu">
                             {% for c in navChildren %}
                                 {% if c.stub contains 'http' %}
-                                <!-- External Link (Button Style) -->
-                                <a class="dropdown-item btn btn-outline-light{% if page.url == c.stub %} active{% endif %}" href="{{ c.stub }}" target="_blank" rel="noopener noreferrer">{{ c.display_name }}</a>
+                                <!-- External Link -->
+                                <a class="dropdown-item{% if page.url == c.stub %} active{% endif %}" href="{{ c.stub }}" target="_blank" rel="noopener noreferrer">{{ c.display_name }}</a>
                                 {% else %}
-                                <!-- Local Link (Button Style) -->
-                                <a class="dropdown-item btn btn-outline-light{% if page.url == c.stub %} active{% endif %}" href="{{ c.stub | relative_url }}">{{ c.display_name }}</a>
+                                <!-- Local Link -->
+                                <a class="dropdown-item{% if page.url == c.stub %} active{% endif %}" href="{{ c.stub | relative_url }}">{{ c.display_name }}</a>
                                 {% endif %}
                             {% endfor %}
                         </div>
