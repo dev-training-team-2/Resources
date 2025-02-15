@@ -91,54 +91,72 @@
         border-radius: 30px; /* Rounded corners */
         border-top-right-radius: 60px; /* Round the top-right corner more */
     }
-    .swiper-button-prev {
+    /* Positioning the left and right arrows */
+.swiper-button-prev, .swiper-button-next {
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 50%; /* Centers vertically */
+    transform: translateY(-50%); /* Corrects positioning to be perfectly centered */
     z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3rem;  /* Adjust the width and height to fit the circle size */
+    width: 3rem;  /* Adjust the width of the circle */
     height: 3rem;  /* Same as width for a perfect circle */
     padding: 0;
     color: #fff;
-    background-color: #007bff;  /* Blue background color */
-    border: none;  /* Remove default border */
-    border-radius: 50%;  /* Makes it a circle */
+    background-color: #007bff;  /* Blue background */
+    border: none;
+    border-radius: 50%;  /* Makes the background a circle */
     opacity: 0.5;
     transition: opacity 0.15s ease;
-    cursor: pointer;  /* Show pointer cursor on hover */
+    cursor: pointer;  /* Shows a pointer cursor on hover */
 }
 
+/* Prevent transition for users with reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-    .swiper-button-prev {
-        transition: none;  /* Disable transition for reduced motion users */
+    .swiper-button-prev, .swiper-button-next {
+        transition: none;
     }
 }
 
-.swiper-button-prev:hover,
-.swiper-button-prev:focus {
+/* On hover/focus, increase opacity */
+.swiper-button-prev:hover, .swiper-button-next:hover, 
+.swiper-button-prev:focus, .swiper-button-next:focus {
     color: #fff;
     text-decoration: none;
     outline: none;
     opacity: 0.9;
 }
 
-.swiper-button-prev-icon {
+/* Adjust the arrow icon size inside the button */
+.swiper-button-prev-icon, .swiper-button-next-icon {
     display: inline-block;
-    width: 1rem;  /* Adjust the width of the icon */
-    height: 1rem;  /* Same as width for consistent aspect ratio */
+    width: 1rem;  /* Adjust width */
+    height: 1rem;  /* Adjust height */
     background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: 100% 100%;
+    background-position: center;
+    background-size: contain; /* Make sure the icons fit well */
+}
+
+/* Background images for the arrows */
+.swiper-button-prev-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
 }
 
-.swiper-button-prev:focus {
-    outline: 0;
-    box-shadow: none;
+.swiper-button-next-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
+
+/* Positioning the left arrow */
+.swiper-button-prev {
+    left: 0;  /* Aligns to the left */
+}
+
+/* Positioning the right arrow */
+.swiper-button-next {
+    right: 0;  /* Aligns to the right */
+}
+
 
 
 
