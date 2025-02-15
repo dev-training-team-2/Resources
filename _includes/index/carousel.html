@@ -38,7 +38,6 @@
     #imageCarousel .carousel-item .carousel-img { 
         height: {{ include.height | remove: 'px' | strip | default: '300' }}px; 
         display: flex;
-        
     }
     
     .carousel-left {
@@ -89,9 +88,8 @@
         margin-top: 10px; /* Add space between title and button */
     }
     .carousel-inner {
-        border-radius: 100px; /* Rounded corners */
-        
-        
+        border-radius: 30px; /* Rounded corners */
+        border-top-right-radius: 60px; /* Round the top-right corner more */
     }
 
 
