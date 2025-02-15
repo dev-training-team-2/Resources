@@ -91,6 +91,55 @@
         border-radius: 30px; /* Rounded corners */
         border-top-right-radius: 60px; /* Round the top-right corner more */
     }
+    .swiper-button-prev {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;  /* Adjust the width and height to fit the circle size */
+    height: 3rem;  /* Same as width for a perfect circle */
+    padding: 0;
+    color: #fff;
+    background-color: #007bff;  /* Blue background color */
+    border: none;  /* Remove default border */
+    border-radius: 50%;  /* Makes it a circle */
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+    cursor: pointer;  /* Show pointer cursor on hover */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .swiper-button-prev {
+        transition: none;  /* Disable transition for reduced motion users */
+    }
+}
+
+.swiper-button-prev:hover,
+.swiper-button-prev:focus {
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+    opacity: 0.9;
+}
+
+.swiper-button-prev-icon {
+    display: inline-block;
+    width: 1rem;  /* Adjust the width of the icon */
+    height: 1rem;  /* Same as width for consistent aspect ratio */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+.swiper-button-prev:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
 
 
 </style>
@@ -106,8 +155,8 @@
             <div id="carouselInner" class="carousel-inner" >
                 
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <button class="swiper-button-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                <span class="swiper-button-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
