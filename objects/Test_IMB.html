@@ -16,29 +16,34 @@
 
     <style>
         /* Ensure the carousel covers the available space */
-        .carousel, .carousel-inner {
+        .carousel,
+        .carousel-inner {
             width: 100%;
-            height: 100vh;  /* Ensure it takes the full height of the viewport */
-            overflow: hidden;  /* Hide any overflow */
+            height: 100vh;
+            /* Ensure it takes the full height of the viewport */
+            overflow: hidden;
+            /* Hide any overflow */
         }
-    
+
         .carousel-item {
             position: relative;
             width: 100%;
             height: 100%;
 
         }
-    
+
         .carousel-item.active {
             display: block;
         }
-    
+
         .carousel-img {
             width: 100%;
-            height: 100%;  /* Ensure the image fills the carousel */
-            object-fit: cover;  /* Make sure the image covers the space without stretching */
+            height: 100%;
+            /* Ensure the image fills the carousel */
+            object-fit: cover;
+            /* Make sure the image covers the space without stretching */
         }
-    
+
         /* Carousel indicators */
         .carousel-indicators {
             position: absolute;
@@ -50,7 +55,7 @@
             text-align: center;
             z-index: 2;
         }
-    
+
         .carousel-indicators li {
             display: flex;
             width: 30px;
@@ -62,18 +67,19 @@
             border: 1px solid #000;
             border-radius: 10px;
         }
-    
+
         .carousel-indicators .active {
             background-color: #b83a4b;
         }
-    
+
         /* Styling the carousel control buttons */
         .carousel-control-prev,
         .carousel-control-next {
             position: flex;
             top: 50%;
             transform: translateY(-50%);
-            background-color: #1b365d;  /* Dark blue background */
+            background-color: #1b365d;
+            /* Dark blue background */
             border-radius: 50%;
             width: 3rem;
             height: 3rem;
@@ -85,7 +91,7 @@
             border: none;
             z-index: 1;
         }
-    
+
         /* Custom icon background */
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
@@ -93,8 +99,9 @@
             color: #fff;
             font-size: 1.5rem;
         }
-           /* Fullscreen button */
-           .fullscreen-btn {
+
+        /* Fullscreen button */
+        .fullscreen-btn {
             position: fixed;
             top: 10px;
             right: 10px;
@@ -112,39 +119,43 @@
         .fullscreen-btn:hover {
             background-color: #b83a4b;
         }
-    
+
         /* Media Query for smaller screens */
         @media (max-width: 576px) {
             .carousel-inner {
                 position: relative;
-                height: auto;  /* Allow height to auto adjust on smaller screens */
+                height: auto;
+                /* Allow height to auto adjust on smaller screens */
             }
+
             .carousel-control-prev,
             .carousel-control-next {
-                width: 2.5rem;  /* Smaller size for smaller screens */
+                width: 2.5rem;
+                /* Smaller size for smaller screens */
                 height: 2.5rem;
                 font-size: 1.25rem;
             }
-}   
-        
-    
+        }
+
+
         /* Media Query for medium screens */
         @media (min-width: 577px) and (max-width: 1024px) {
             .carousel-inner {
-                height: auto;  /* Remove height constraint on medium screens */
-            }
-        }
-    
-        /* Media Query for large screens */
-        @media (min-width: 1025px) {
-            .carousel-inner {
-                height: auto;  /* Remove height constraint on larger screens */
+                height: auto;
+                /* Remove height constraint on medium screens */
             }
         }
 
+        /* Media Query for large screens */
+        @media (min-width: 1025px) {
+            .carousel-inner {
+                height: auto;
+                /* Remove height constraint on larger screens */
+            }
+        }
     </style>
-    
-    
+
+
 </head>
 
 <body id="CE_Metro_-_IMB_Resources">
@@ -283,91 +294,88 @@
 </button> -->
 
 
-<script>
-    // Fullscreen toggle function
-    function toggleFullScreen() {
-        var fullscreenIcon = document.getElementById("fullscreen-icon");
-        if (!document.fullscreenElement) {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-                document.documentElement.msRequestFullscreen();
+    <script>
+        // Fullscreen toggle function
+        function toggleFullScreen() {
+            var fullscreenIcon = document.getElementById("fullscreen-icon");
+            if (!document.fullscreenElement) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
             }
-            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
+        }
+
+        // Adjust carousel controls dynamically based on image height
+        function adjustCarouselControls() {
+            const carouselItems = document.querySelectorAll('.carousel-item');
+
+            // Iterate through each carousel item
+            carouselItems.forEach(item => {
+                const img = item.querySelector('.carousel-img');
+
+                // Check if the image has already loaded or set the onload event
+                if (img.complete) {
+                    adjustControlArrows(img);
+                } else {
+                    img.onload = function () {
+                        adjustControlArrows(img);
+                    };
+                }
+            });
+        }
+
+        function adjustControlArrows(img) {
+            const imgHeight = img.clientHeight; // Get the height of the image
+
+            // Adjust carousel control arrows globally
+            const prevControl = document.querySelector('.carousel-control-prev');
+            const nextControl = document.querySelector('.carousel-control-next');
+
+            if (prevControl && nextControl) {
+                // Center the arrows vertically based on the image height
+                prevControl.style.top = `${(imgHeight / 2) - 25}px`;
+                nextControl.style.top = `${(imgHeight / 2) - 25}px`;
             }
-            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
+
+            // Adjust the indicators' position relative to the image height
+            const indicators = document.querySelector('.carousel-indicators');
+            if (indicators) {
+                indicators.style.bottom = `${imgHeight / 10}px`;
+            }
         }
-    }
 
-    // Adjust carousel controls dynamically based on image height
-function adjustCarouselControls() {
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    console.log(carouselItems);
+        // Ensure the carousel controls are adjusted on page load and resize
+        window.onload = adjustCarouselControls;
+        window.onresize = adjustCarouselControls;  // Recalculate on window resize
 
-    carouselItems.forEach(item => {
-        const img = item.querySelector('.carousel-img');
-        
-        // Check if the image has already loaded, otherwise, set onload event
-        if (img.complete) {
-            setCarouselControls(img);
-        } else {
-            img.onload = function () {
-                setCarouselControls(img);
-            };
-        }
-    });
-}
-
-function setCarouselControls(img) {
-    const imgHeight = img.clientHeight; // Get the height of the image
-
-    // Adjust carousel control arrows for each item
-    const prevControl = img.closest('.carousel-item').querySelector('.carousel-control-prev');
-    const nextControl = img.closest('.carousel-item').querySelector('.carousel-control-next');
-
-    if (prevControl && nextControl) {
-        prevControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
-        nextControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
-    }
-
-    // Adjust indicators (assumes they apply to the entire carousel)
-    const indicators = document.querySelector('.carousel-indicators');
-    if (indicators) {
-        indicators.style.bottom = `${imgHeight / 10}px`;  // Position indicators at the bottom
-    }
-}
-
-// Run the adjustCarouselControls function when the page is loaded or when images are loaded
-window.onload = adjustCarouselControls;
-window.onresize = adjustCarouselControls; // Ensure adjustments on window resize
-
-
-    // Make sure carousel behavior is initialized correctly, overriding the auto-ride setup
-    $(document).ready(function () {
-        // Disable auto-ride behavior (if it's being re-enabled elsewhere)
-        $('#carouselIndicators').carousel({
-            interval: false // This ensures the carousel doesn't automatically cycle through slides
+        // Initialize the carousel to ensure it doesn't auto-ride
+        $(document).ready(function () {
+            // Disable auto-ride behavior
+            $('#carouselIndicators').carousel({
+                interval: false // This ensures the carousel doesn't automatically cycle
+            });
         });
 
-        // Adjust controls when the page is loaded or on window resize
-        window.onload = adjustCarouselControls;
-        window.onresize = adjustCarouselControls;
-    });
-</script>
-   
+    </script>
+
 </body>
 
 </html>
