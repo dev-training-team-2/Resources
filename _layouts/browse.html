@@ -5,7 +5,22 @@ custom-foot: js/browse-js.html
 ---
 
 {{ content }}
+<style>
+  /* For small screens (phones) */
+@media (max-width: 600px) {
+    .card-img-top {
+        max-height: 200px; /* Reduce the height for smaller screens */
+        width: 100%; /* Ensure full width */
+    }
+}
 
+/* For medium screens (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .card-img-top {
+        max-height: 250px; /* Medium height for tablets */
+    }
+}
+</style>
 <div class="row mb-3 justify-content-center">
     <div class="col-md-8 text-center">
         <form class="" role="search" id="lunrSearch" onsubmit="submitFilter(); return false;">
