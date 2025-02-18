@@ -5,6 +5,9 @@ custom-foot: js/browse-js.html
 ---
 
 {{ content }}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
   /* For small screens (phones) */
 @media (max-width: 600px) {
@@ -12,12 +15,19 @@ custom-foot: js/browse-js.html
         max-height: 200px; /* Reduce the height for smaller screens */
         width: 100%; /* Ensure full width */
     }
+    .card {
+        height: auto; /* Reset card height to auto before measuring */
+    }
 }
 
 /* For medium screens (tablets) */
 @media (min-width: 601px) and (max-width: 1024px) {
     .card-img-top {
         max-height: 250px; /* Medium height for tablets */
+    }
+
+    .card {
+        height: auto; /* Reset card height to auto before measuring */
     }
 }
 </style>
@@ -71,7 +81,7 @@ custom-foot: js/browse-js.html
         cards.forEach(function (card) {
           const cardHeight = card.offsetHeight;  // Get the full height of the card (image + text)
           if (cardHeight > maxHeight) {
-            maxHeight = cardHeight + 5;  // add 10px to the height to allow for padding
+            maxHeight = cardHeight + 5;  // add 5px to the height to allow for padding
           }
         });
   
