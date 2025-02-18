@@ -283,74 +283,72 @@
 </button> -->
 
 
-    <script>
-        // Function to toggle fullscreen mode
-        function toggleFullScreen() {
-            if (!document.fullscreenElement &&  // If not in fullscreen
-                !document.webkitFullscreenElement && // Safari
-                !document.mozFullScreenElement && // Firefox
-                !document.msFullscreenElement) { // IE/Edge
-                // Request fullscreen for the body element
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.webkitRequestFullscreen) { // Safari
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-                    document.documentElement.msRequestFullscreen();
-                }
-                        // Change icon to exit fullscreen
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
-            } else {
-                // If already in fullscreen, exit fullscreen
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) { // Safari
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) { // Firefox
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) { // IE/Edge
-                    document.msExitFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
-           
+<script>
+    // Fullscreen toggle function
+    function toggleFullScreen() {
+        var fullscreenIcon = document.getElementById("fullscreen-icon");
+        if (!document.fullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
             }
+            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
         }
+    }
 
-        // Function to adjust control buttons and indicators based on image height
-        function adjustCarouselControls() {
-            // Get all carousel items
-            const carouselItems = document.querySelectorAll('.carousel-item');
-            
-            // Loop through each item and adjust the controls
-            carouselItems.forEach(item => {
-                const img = item.querySelector('.carousel-img');
-                img.onload = function() {
-                    const imgHeight = img.clientHeight; // Get the height of the image
+    // Adjust carousel controls dynamically based on image height
+    function adjustCarouselControls() {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        carouselItems.forEach(item => {
+            const img = item.querySelector('.carousel-img');
+            img.onload = function () {
+                const imgHeight = img.clientHeight; // Get the height of the image
 
-                    // Adjust carousel control arrows
-                    const prevControl = item.querySelector('.carousel-control-prev');
-                    const nextControl = item.querySelector('.carousel-control-next');
-
-                    if (prevControl && nextControl) {
-                        prevControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
-                        nextControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
-                    }
-
-                    // Adjust indicators
-                    const indicators = document.querySelector('.carousel-indicators');
-                    if (indicators) {
-                        indicators.style.bottom = `${imgHeight / 10}px`;  // Position indicators at the bottom
-                    }
+                // Adjust carousel control arrows
+                const prevControl = document.querySelector('.carousel-control-prev');
+                const nextControl = document.querySelector('.carousel-control-next');
+                if (prevControl && nextControl) {
+                    prevControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
+                    nextControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
                 }
-            });
-        }
 
-        // Run the adjustCarouselControls function when the page is loaded or when images are loaded
+                // Adjust indicators
+                const indicators = document.querySelector('.carousel-indicators');
+                if (indicators) {
+                    indicators.style.bottom = `${imgHeight / 10}px`;  // Position indicators at the bottom
+                }
+            };
+        });
+    }
+
+    // Make sure carousel behavior is initialized correctly, overriding the auto-ride setup
+    $(document).ready(function () {
+        // Disable auto-ride behavior (if it's being re-enabled elsewhere)
+        $('#carouselIndicators').carousel({
+            interval: false // This ensures the carousel doesn't automatically cycle through slides
+        });
+
+        // Adjust controls when the page is loaded or on window resize
         window.onload = adjustCarouselControls;
-        window.onresize = adjustCarouselControls; // Ensure adjustments on window resize
-    </script>
+        window.onresize = adjustCarouselControls;
+    });
+</script>
    
 </body>
 
