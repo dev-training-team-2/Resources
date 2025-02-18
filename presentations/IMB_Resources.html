@@ -296,6 +296,14 @@
 
 
     <script>
+        // Initialize the carousel to ensure it doesn't auto-ride
+        $(document).ready(function () {
+            // Disable auto-ride behavior
+            $('#carouselIndicators').carousel({
+                interval: false // This ensures the carousel doesn't automatically cycle
+            });
+        });
+        
         // Fullscreen toggle function
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
@@ -382,13 +390,7 @@
         console.log('Next control: ', nextControl);
 
 
-        // Initialize the carousel to ensure it doesn't auto-ride
-        $(document).ready(function () {
-            // Disable auto-ride behavior
-            $('#carouselIndicators').carousel({
-                interval: false // This ensures the carousel doesn't automatically cycle
-            });
-        });
+        
 
     </script>
 
