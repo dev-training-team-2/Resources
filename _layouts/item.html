@@ -4,7 +4,23 @@ layout: default
 custom-foot: js/item-js.html;js/modal-hash-js.html
 gallery: true
 ---
+<style>
+    /* For small screens (phones) */
+@media (max-width: 600px) {
+    .phone-accessible {
+        max-height: 200px; /* Reduce the height for smaller screens */
+        width: 100%; /* Ensure full width */
+    }
+}
 
+/* For medium screens (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .phone-accessible {
+        max-height: 250px; /* Medium height for tablets */
+    }
+}
+
+</style>
 <div class="container py-3">
     <ul class="breadcrumb h6">
         <li class="breadcrumb-item"><a class="text-dark" href="{{ '/' | relative_url }}">{{ site.title }}</a></li>
