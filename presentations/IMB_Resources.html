@@ -331,47 +331,54 @@
                 fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
             }
         }
+// Adjust carousel controls dynamically based on image height for the active item
+function adjustCarouselControls() {
+        // Get the active carousel item
+        const activeItem = document.querySelector('.carousel-item.active');
+        
+        if (activeItem) {
+            const img = activeItem.querySelector('.carousel-img'); // Find the image in the active item
 
-        // Adjust carousel controls dynamically based on image height
-        function adjustCarouselControls() {
-            const carouselItems = document.querySelectorAll('.carousel-item');
-            const img = item.querySelector('.carousel-img');
+            // Check if the image has already loaded or set the onload event
+            if (img.complete) {
+                adjustControlArrows(img); // If the image is already loaded, adjust arrows
+            } else {
+                img.onload = function () {
+                    adjustControlArrows(img); // Adjust arrows once the image has loaded
+                };
+            }
+        }
 
-                if (img) {
-                    // Check if the image has already loaded
-                    if (img.complete && img.naturalHeight !== 0) {
-                        // If the image has already loaded, adjust the controls immediately
-                        adjustControlArrows(img);
-                    } else {
-                        // If the image hasn't loaded, set an onload event to adjust controls after loading
-                        img.onload = function () {
-                            adjustControlArrows(img);
-                        };
-                    }
-                }
-                // After adjusting the controls, pause the carousel to stop it from auto-advancing
+        // After adjusting the controls, pause the carousel to stop it from auto-advancing
         $('#carouselIndicators').carousel('pause');
+    }
+
+    function adjustControlArrows(img) {
+        const imgHeight = img.clientHeight; // Get the height of the image
+
+        // Adjust carousel control arrows globally (only for the active image)
+        const prevControl = document.querySelector('.carousel-control-prev');
+        const nextControl = document.querySelector('.carousel-control-next');
+
+        if (prevControl && nextControl) {
+            // Center the arrows vertically based on the image height
+            prevControl.style.top = `${(imgHeight / 2) - 25}px`;
+            nextControl.style.top = `${(imgHeight / 2) - 25}px`;
         }
 
-        function adjustControlArrows(img) {
-            const imgHeight = img.clientHeight;  // Get the height of the image
-
-            // Adjust carousel control arrows globally
-            const prevControl = document.querySelector('.carousel-control-prev');
-            const nextControl = document.querySelector('.carousel-control-next');
-
-            if (prevControl && nextControl) {
-                // Center the arrows vertically based on the image height
-                prevControl.style.top = `${(imgHeight / 2) - 25}px`;
-                nextControl.style.top = `${(imgHeight / 2) - 25}px`;
-            }
-
-            // Adjust the indicators' position relative to the image height
-            const indicators = document.querySelector('.carousel-indicators');
-            if (indicators) {
-                indicators.style.bottom = `${imgHeight / 10}px`;
-            }
+        // Adjust the indicators' position relative to the image height
+        const indicators = document.querySelector('.carousel-indicators');
+        if (indicators) {
+            indicators.style.bottom = `${imgHeight / 10}px`;
         }
+    }
+
+    // Initialize the carousel to ensure it doesn't auto-ride
+    $(document).ready(function () {
+        // Disable auto-ride behavior for the carousel
+        $('#carouselIndicators').carousel({
+            interval: false // This ensures the carousel doesn't automatically cycle
+        });
 
         // Adjust carousel controls once the page is fully loaded
         window.onload = adjustCarouselControls;
@@ -380,20 +387,33 @@
         window.onresize = function () {
             adjustCarouselControls();
         };
+    });
 
-
-
-        // Ensure the carousel controls are adjusted on page load and resize
-        window.onload = adjustCarouselControls;
-        window.onresize = adjustCarouselControls;  // Recalculate on window resize
-        console.log('Adjusting controls...');
-        console.log('Image height: ', img.clientHeight);
-        console.log('Prev control: ', prevControl);
-        console.log('Next control: ', nextControl);
-
-
+    // Listen for when the carousel is slid to adjust controls for the new active item
+    $('#carouselIndicators').on('slid.bs.carousel', function () {
+        adjustCarouselControls(); // Adjust controls when a new slide is active
         
+        // Update the active indicator based on the active slide
+        updateActiveIndicator();
+    });
 
+    // Function to update the active class on the indicators
+    function updateActiveIndicator() {
+        // Remove 'active' class from all indicators
+        const indicators = document.querySelectorAll('.carousel-indicators li');
+        indicators.forEach(indicator => {
+            indicator.classList.remove('active');
+        });
+
+        // Get the index of the active slide
+        const activeSlideIndex = $('#carouselIndicators').find('.carousel-item.active').index();
+
+        // Add 'active' class to the corresponding indicator
+        const activeIndicator = indicators[activeSlideIndex];
+        if (activeIndicator) {
+            activeIndicator.classList.add('active');
+        }
+    }
     </script>
 
 </body>
