@@ -41,19 +41,19 @@
     
         /* Carousel indicators */
         .carousel-indicators {
-            position: flex;
-            bottom: 0;
-            left: 0;
+            position: absolute;
+            bottom: 10px;
             right: 0;
             margin: 0;
             padding: 0;
             list-style: none;
             text-align: center;
+            z-index: 2;
         }
     
         .carousel-indicators li {
             display: flex;
-            width: 20px;
+            width: 30px;
             height: 3px;
             margin: 1px;
             text-indent: -999px;
@@ -73,7 +73,6 @@
             position: flex;
             top: 50%;
             transform: translateY(-50%);
-            
             background-color: #1b365d;  /* Dark blue background */
             border-radius: 50%;
             width: 3rem;
@@ -276,8 +275,13 @@
         </a>
     </div>
 
+
     <!-- Fullscreen Button -->
-    <button class="fullscreen-btn" onclick="toggleFullScreen()">Fullscreen</button>
+    <!-- Fullscreen Button with SVG Icon -->
+<button class="fullscreen-btn" onclick="toggleFullScreen()">
+    <img id="fullscreen-icon"  src="https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg" alt="Fullscreen Icon" />
+</button>
+
 
     <script>
         // Function to toggle fullscreen mode
@@ -296,6 +300,8 @@
                 } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
                     document.documentElement.msRequestFullscreen();
                 }
+                        // Change icon to exit fullscreen
+                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
             } else {
                 // If already in fullscreen, exit fullscreen
                 if (document.exitFullscreen) {
@@ -307,9 +313,45 @@
                 } else if (document.msExitFullscreen) { // IE/Edge
                     document.msExitFullscreen();
                 }
+                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
+           
             }
         }
+
+        // Function to adjust control buttons and indicators based on image height
+        function adjustCarouselControls() {
+            // Get all carousel items
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            
+            // Loop through each item and adjust the controls
+            carouselItems.forEach(item => {
+                const img = item.querySelector('.carousel-img');
+                img.onload = function() {
+                    const imgHeight = img.clientHeight; // Get the height of the image
+
+                    // Adjust carousel control arrows
+                    const prevControl = item.querySelector('.carousel-control-prev');
+                    const nextControl = item.querySelector('.carousel-control-next');
+
+                    if (prevControl && nextControl) {
+                        prevControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
+                        nextControl.style.top = `${(imgHeight / 2) - 25}px`;  // Center the arrows vertically
+                    }
+
+                    // Adjust indicators
+                    const indicators = document.querySelector('.carousel-indicators');
+                    if (indicators) {
+                        indicators.style.bottom = `${imgHeight / 10}px`;  // Position indicators at the bottom
+                    }
+                }
+            });
+        }
+
+        // Run the adjustCarouselControls function when the page is loaded or when images are loaded
+        window.onload = adjustCarouselControls;
+        window.onresize = adjustCarouselControls; // Ensure adjustments on window resize
     </script>
+   
 </body>
 
 </html>
