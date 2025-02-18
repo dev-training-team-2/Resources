@@ -66,31 +66,35 @@ custom-foot: js/browse-js.html
 <div class="row" id="browseItems"></div>
 
 <script>
-    window.addEventListener('load', function () {
-      // Give the browser a chance to render the content
-      setTimeout(function () {
-        const cards = document.querySelectorAll('.card');
-        let maxHeight = 0;
-  
-        // Reset card heights to auto to ensure we are recalculating from scratch
-        cards.forEach(function (card) {
-          card.style.height = 'auto'; // Reset card height to auto before measuring
-        });
-  
-        // Find the maximum height of all the cards (after layout is fully applied)
-        cards.forEach(function (card) {
-          const cardHeight = card.offsetHeight;  // Get the full height of the card (image + text)
-          if (cardHeight > maxHeight) {
-            maxHeight = cardHeight + 5;  // add 5px to the height to allow for padding
-          }
-        });
-  
-        // Apply the max height to all cards
-        cards.forEach(function (card) {
-          card.style.height = `${maxHeight}px`;  // Set the same height for all cards
-        });
-      }, 0);  // Timeout of 0 milliseconds allows the browser to render before applying JS
+window.addEventListener('load', adjustCardHeights);
+window.addEventListener('resize', adjustCardHeights);  // Recalculate heights on window resize
+
+function adjustCardHeights() {
+  // Allow the browser to render the content before adjusting
+  setTimeout(function () {
+    const cards = document.querySelectorAll('.card');
+    let maxHeight = 0;
+
+    // Reset card heights to auto to ensure we are recalculating from scratch
+    cards.forEach(function (card) {
+      card.style.height = 'auto'; // Reset card height to auto before measuring
     });
+
+    // Find the maximum height of all the cards (after layout is fully applied)
+    cards.forEach(function (card) {
+      const cardHeight = card.offsetHeight;  // Get the full height of the card (image + text)
+      if (cardHeight > maxHeight) {
+        maxHeight = cardHeight + 5;  // Add 5px to the height to allow for padding
+      }
+    });
+
+    // Apply the max height to all cards
+    cards.forEach(function (card) {
+      card.style.height = `${maxHeight}px`;  // Set the same height for all cards
+    });
+  }, 0);  // Timeout of 0 milliseconds allows the browser to render before applying JS
+}
+
   </script>
   
   
