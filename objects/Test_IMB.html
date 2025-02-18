@@ -92,6 +92,25 @@
             color: #fff;
             font-size: 1.5rem;
         }
+           /* Fullscreen button */
+           .fullscreen-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #1b365d;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        /* Fullscreen button hover effect */
+        .fullscreen-btn:hover {
+            background-color: #b83a4b;
+        }
     
         /* Media Query for smaller screens */
         @media (max-width: 576px) {
@@ -113,6 +132,7 @@
                 height: auto;  /* Remove height constraint on larger screens */
             }
         }
+
     </style>
     
     
@@ -245,6 +265,41 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+
+    <!-- Fullscreen Button -->
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">Fullscreen</button>
+
+    <script>
+        // Function to toggle fullscreen mode
+        function toggleFullScreen() {
+            if (!document.fullscreenElement &&  // If not in fullscreen
+                !document.webkitFullscreenElement && // Safari
+                !document.mozFullScreenElement && // Firefox
+                !document.msFullscreenElement) { // IE/Edge
+                // Request fullscreen for the body element
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) { // Safari
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                    document.documentElement.msRequestFullscreen();
+                }
+            } else {
+                // If already in fullscreen, exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { // Safari
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) { // Firefox
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) { // IE/Edge
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
