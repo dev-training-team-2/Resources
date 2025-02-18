@@ -327,10 +327,7 @@
         // Adjust carousel controls dynamically based on image height
         function adjustCarouselControls() {
             const carouselItems = document.querySelectorAll('.carousel-item');
-
-            // Iterate through each carousel item to get the image
-            carouselItems.forEach(item => {
-                const img = item.querySelector('.carousel-img');
+            const img = item.querySelector('.carousel-img');
 
                 if (img) {
                     // Check if the image has already loaded
@@ -344,7 +341,6 @@
                         };
                     }
                 }
-            });
         }
 
         function adjustControlArrows(img) {
