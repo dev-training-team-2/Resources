@@ -21,7 +21,6 @@
 		}
 
 		.carousel-inner {
-			max-height: 400px;
 			/* Set a max height for the carousel */
 		}
 
@@ -53,8 +52,8 @@
 
 		.carousel-indicators li {
 			display: inline-block;
-			width: 10px;
-			height: 10px;
+			width: 20px;
+			height: 3px;
 			margin: 1px;
 			text-indent: -999px;
 			cursor: pointer;
@@ -78,11 +77,43 @@
 		.carousel-indicators li.active:hover {
 			background-color: #000;
 		}
+        /* Style for the carousel control arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: blanchedalmond; /* Dark circle background */
+  border-radius: 50%; /* Make them circular */
+  width: 30px; /* Set the width of the circle */
+  height: 30px; /* Set the height of the circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-control-prev-icon {
+  background-image: none; /* Remove default background image */
+  color: #000; /* White arrow color */
+  font-size: 20px; /* Size of the arrow */
+  text-align: center;
+}
+
+.carousel-control-next-icon {
+  background-image: none; /* Remove default background image */
+  color: #fff; /* White arrow color */
+  font-size: 20px; /* Size of the arrow */
+  text-align: center;
+}
+
+/* Optional hover effect for arrows */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: #444; /* Darker circle on hover */
+}
+
 	</style>
 </head>
 
 <body id="CE_Metro_-_IMB_Resources">
-	<div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+	<div id="carouselIndicators" class="carousel slide" >
 		<!-- Indicators (optional) -->
 		<ol class="carousel-indicators">
 			<li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
