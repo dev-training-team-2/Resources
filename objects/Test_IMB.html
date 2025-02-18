@@ -17,34 +17,25 @@
     <style>
         .carousel-img {
             width: 100%;
-            height: auto;
-            object-fit: cover;
+            height: 100%;
+            object-fit: cover;  /* Ensure the image covers the space without stretching */
         }
-
+    
         .carousel-inner {
-            /* Set a max height for the carousel */
             width: 100%;
             height: 100%;
         }
-
-        .carousel-item img {
-            object-fit: cover;
-            /* Make sure the image covers the space without stretching */
-            width: 100%;
-            height: 100%;
-        }
-
+    
         .carousel-item {
             display: none;
             width: 100%;
-            height: 100%;
-
+            height: 100%;  /* Ensure it uses the full height */
         }
-
+    
         .carousel-item.active {
             display: block;
         }
-
+    
         .carousel-indicators {
             position: absolute;
             bottom: 0;
@@ -55,7 +46,7 @@
             list-style: none;
             text-align: center;
         }
-
+    
         .carousel-indicators li {
             display: inline-block;
             width: 20px;
@@ -67,84 +58,72 @@
             border: 1px solid #000;
             border-radius: 10px;
         }
-
+    
         .carousel-indicators .active {
             background-color: #b83a4b;
-            ;
         }
-
+    
         .carousel-indicators li:hover {
             background-color: #000;
         }
-
+    
         .carousel-indicators li.active {
             background-color: #009681;
         }
-
+    
         .carousel-indicators li.active:hover {
             background-color: #000;
         }
-
-        /* Style for the carousel control arrows */
-
+    
         /* Styling the carousel control buttons */
         .carousel-control-prev,
         .carousel-control-next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: #1b365d;
-            /* Dark blue background */
+            background-color: #1b365d;  /* Dark blue background */
             border-radius: 50%;
-            /* Circular buttons */
             width: 3rem;
-            /* Set the width */
             height: 3rem;
-            /* Set the height */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            /* White arrows */
-            font-size: 1.5rem;
-            /* Font size for the arrows */
+            color: #fff;  /* White arrows */
+            font-size: 1.5rem;  /* Font size for the arrows */
             border: none;
-            z-index: 1;
-            /* Ensures buttons are on top */
+            z-index: 1;  /* Ensures buttons are on top */
         }
-
+    
         /* Remove the default background image and add custom arrow icon */
         .carousel-control-prev-icon,
         .carousel-control-next-icon {
-            border-radius: 100px;
             background-color: #1b365d;
-            /* Dark blue background */
             color: #fff;
-            /* White color for arrows */
             font-size: 1.5rem;
-            /* Adjust the size of the icon */
         }
-         /* Media Query for small screens (e.g., smartphones) */
-    @media (max-width: 576px) {
-      .carousel-item {
-        height: auto;  /* Let the height adjust automatically on smaller screens */
-      }
-    }
-
-    /* Media Query for larger screens (e.g., tablets or small laptops) */
-    @media (min-width: 577px) and (max-width: 1024px) {
-      .carousel-inner {
-        max-height: 70vh; /* Limit the carousel's height on medium screens */
-      }
-    }
-
-    /* Media Query for large screens (e.g., desktops) */
-    @media (min-width: 1025px) {
-      .carousel-inner {
-        max-height: 80vh; /* Limit the carousel's height on larger screens */
-      }
-    }
+    
+        /* Media Query for small screens (e.g., smartphones) */
+        @media (max-width: 576px) {
+            .carousel-item {
+                height: auto;  /* Let the height adjust automatically on smaller screens */
+            }
+        }
+    
+        /* Media Query for larger screens (e.g., tablets or small laptops) */
+        @media (min-width: 577px) and (max-width: 1024px) {
+            .carousel-inner {
+                height: auto;  /* Remove height constraint on medium screens */
+            }
+        }
+    
+        /* Media Query for large screens (e.g., desktops) */
+        @media (min-width: 1025px) {
+            .carousel-inner {
+                height: auto;  /* Remove height constraint on larger screens */
+            }
+        }
     </style>
+    
 </head>
 
 <body id="CE_Metro_-_IMB_Resources">
