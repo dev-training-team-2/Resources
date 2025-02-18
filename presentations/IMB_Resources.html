@@ -324,48 +324,64 @@
             }
         }
 
-        // Adjust carousel controls dynamically based on image height
-        function adjustCarouselControls() {
-            const carouselItems = document.querySelectorAll('.carousel-item');
+       // Adjust carousel controls dynamically based on image height
+function adjustCarouselControls() {
+    const carouselItems = document.querySelectorAll('.carousel-item');
 
-            // Iterate through each carousel item
-            carouselItems.forEach(item => {
-                const img = item.querySelector('.carousel-img');
+    // Iterate through each carousel item
+    carouselItems.forEach(item => {
+        const img = item.querySelector('.carousel-img');
 
-                // Check if the image has already loaded or set the onload event
-                if (img.complete) {
-                    adjustControlArrows(img);
-                } else {
-                    img.onload = function () {
-                        adjustControlArrows(img);
-                    };
-                }
-            });
+        // Check if the image has already loaded
+        if (img.complete && img.naturalHeight !== 0) {
+            // If loaded, adjust the arrows
+            adjustControlArrows(img);
+        } else {
+            // If not loaded, set the onload event
+            img.onload = function () {
+                adjustControlArrows(img);
+            };
         }
+    });
+}
 
-        function adjustControlArrows(img) {
-            const imgHeight = img.clientHeight; // Get the height of the image
+function adjustControlArrows(img) {
+    const imgHeight = img.clientHeight;  // Get the height of the image
 
-            // Adjust carousel control arrows globally
-            const prevControl = document.querySelector('.carousel-control-prev');
-            const nextControl = document.querySelector('.carousel-control-next');
+    // Adjust carousel control arrows globally
+    const prevControl = document.querySelector('.carousel-control-prev');
+    const nextControl = document.querySelector('.carousel-control-next');
 
-            if (prevControl && nextControl) {
-                // Center the arrows vertically based on the image height
-                prevControl.style.top = `${(imgHeight / 2) - 25}px`;
-                nextControl.style.top = `${(imgHeight / 2) - 25}px`;
-            }
+    if (prevControl && nextControl) {
+        // Center the arrows vertically based on the image height
+        prevControl.style.top = `${(imgHeight / 2) - 25}px`;
+        nextControl.style.top = `${(imgHeight / 2) - 25}px`;
+    }
 
-            // Adjust the indicators' position relative to the image height
-            const indicators = document.querySelector('.carousel-indicators');
-            if (indicators) {
-                indicators.style.bottom = `${imgHeight / 10}px`;
-            }
-        }
+    // Adjust the indicators' position relative to the image height
+    const indicators = document.querySelector('.carousel-indicators');
+    if (indicators) {
+        indicators.style.bottom = `${imgHeight / 10}px`;
+    }
+}
+
+// Adjust carousel controls once the page is fully loaded
+window.onload = adjustCarouselControls;
+
+// Recalculate carousel controls on window resize
+window.onresize = function () {
+    adjustCarouselControls();
+};
+
 
         // Ensure the carousel controls are adjusted on page load and resize
         window.onload = adjustCarouselControls;
         window.onresize = adjustCarouselControls;  // Recalculate on window resize
+        console.log('Adjusting controls...');
+        console.log('Image height: ', img.clientHeight);
+        console.log('Prev control: ', prevControl);
+        console.log('Next control: ', nextControl);
+
 
         // Initialize the carousel to ensure it doesn't auto-ride
         $(document).ready(function () {
