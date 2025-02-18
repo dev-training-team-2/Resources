@@ -23,9 +23,10 @@
         }
     
         .carousel-item {
-            display: none;
+            position: relative;
             width: 100%;
             height: 100%;
+
         }
     
         .carousel-item.active {
@@ -40,7 +41,7 @@
     
         /* Carousel indicators */
         .carousel-indicators {
-            position: absolute;
+            position: flex;
             bottom: 0;
             left: 0;
             right: 0;
@@ -51,7 +52,7 @@
         }
     
         .carousel-indicators li {
-            display: inline-block;
+            display: flex;
             width: 20px;
             height: 3px;
             margin: 1px;
@@ -69,9 +70,10 @@
         /* Styling the carousel control buttons */
         .carousel-control-prev,
         .carousel-control-next {
-            position: absolute;
+            position: flex;
             top: 50%;
             transform: translateY(-50%);
+            
             background-color: #1b365d;  /* Dark blue background */
             border-radius: 50%;
             width: 3rem;
@@ -115,9 +117,17 @@
         /* Media Query for smaller screens */
         @media (max-width: 576px) {
             .carousel-inner {
+                position: relative;
                 height: auto;  /* Allow height to auto adjust on smaller screens */
             }
-        }
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 2.5rem;  /* Smaller size for smaller screens */
+                height: 2.5rem;
+                font-size: 1.25rem;
+            }
+}   
+        
     
         /* Media Query for medium screens */
         @media (min-width: 577px) and (max-width: 1024px) {
