@@ -303,7 +303,7 @@
                 interval: false // This ensures the carousel doesn't automatically cycle
             });
         });
-        
+
         // Fullscreen toggle function
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
@@ -349,6 +349,8 @@
                         };
                     }
                 }
+                // After adjusting the controls, pause the carousel to stop it from auto-advancing
+        $('#carouselIndicators').carousel('pause');
         }
 
         function adjustControlArrows(img) {
