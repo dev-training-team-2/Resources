@@ -405,6 +405,8 @@
                 $('#carouselIndicators').carousel('pause');
             }, 50); // A short delay to ensure the DOM is fully updated
 
+            initializeCarousel();
+
         }
 
         function adjustControlArrows(img) {
@@ -430,6 +432,7 @@
                 indicators.style.top = `${imgHeight - 10} px`; // You can adjust this ratio as needed
                 console.log('indicators.style.top: ' + indicators.style.top);
             }
+            initializeCarousel();
         }
 
         // Function to update the active class on the indicators
@@ -448,6 +451,7 @@
             if (activeIndicator) {
                 activeIndicator.classList.add('active');
             }
+            initializeCarousel();
         }
 
         function checkOrientation() {
@@ -462,6 +466,8 @@
             } else {
                 portraitContent.style.display = 'none';   // Hide content
             }
+            initializeCarousel() ;
+            
         }
 
         // Run on load and on resize/orientationchange events
