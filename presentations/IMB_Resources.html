@@ -354,9 +354,7 @@ function adjustCarouselControls() {
     }
 
     function adjustControlArrows(img) {
-        const imgHeight =  calculateIndicatorsPosition(img); // Get the height of the image
-
-        console.log('Image height:', imgHeight);
+        const imgHeight = img.clientHeight; // Get the height of the image
 
         // Adjust carousel control arrows globally (only for the active image)
         const prevControl = document.querySelector('.carousel-control-prev');
@@ -374,22 +372,7 @@ function adjustCarouselControls() {
             indicators.style.bottom = `${imgHeight / 3}px`;
         }
     }
-    function calculateIndicatorsPosition(img) {
-    const indicators = document.querySelector('.carousel-indicators');
-    
-    if (indicators) {
-        const imgHeight = img.clientHeight;
-        console.log("Calculated Image Height: " + imgHeight);
-        
-        // Prevent negative or invalid heights
-        if (imgHeight > 0) {
-            indicators.style.top = `${imgHeight / 3}px`; // Adjust the value as needed
-        } else {
-            console.error("Invalid image height, using default value");
-            indicators.style.top = '20px'; // Use a fallback value in case of an invalid height
-        }
-    }
-}
+
     // Initialize the carousel to ensure it doesn't auto-ride
     $(document).ready(function () {
         // Disable auto-ride behavior for the carousel
