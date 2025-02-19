@@ -189,7 +189,8 @@
             you click on a link. To reactivate it, rotate it back to portrait, then back to landscape. ⚠️⚠️
         </p>
     </div>
-    <div id="carouselIndicators" class="carousel slide" data-ride="false" style="interval: false;">
+    <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+        <!-- Carousel items here -->
         <!-- Indicators (optional) -->
         <ol class="carousel-indicators">
             <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
@@ -317,28 +318,26 @@
     </div>
 
 
-
-    <!-- Fullscreen Button -->
-    <!-- Fullscreen Button with SVG Icon --><!-- 
-<button class="fullscreen-btn" onclick="toggleFullScreen()">
-    <img id="fullscreen-icon"  src="https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg" alt="Fullscreen Icon" />
-</button> -->
-
-
     <script>
         // Initialize the carousel to ensure it doesn't auto-ride
         $(document).ready(function () {
             // Disable auto-ride behavior for the carousel
             $('#carouselIndicators').carousel({
-                interval: false // This ensures the carousel doesn't automatically cycle
+                interval: false, // Disable auto-cycling (auto-advance)
+                ride: false // Disable auto-starting when the page loads
             });
 
+
             // Adjust carousel controls once the page is fully loaded
-            window.onload = adjustCarouselControls;
+            window.onload = function(){
+                adjustCarouselControls();
+                initializeCarousel();
+            };
 
             // Recalculate carousel controls on window resize
             window.onresize = function () {
                 adjustCarouselControls();
+                initializeCarousel();
             };
 
             // Listen for when the carousel is slid to adjust controls for the new active item
@@ -347,6 +346,7 @@
 
                 // Update the active indicator based on the active slide
                 updateActiveIndicator();
+                initializeCarousel();
             });
         });
 
@@ -371,34 +371,15 @@
 
             localStorage.setItem('activeSlideIndex', activeIndex);
             console.log("Active slide index saved to localStorage:", activeIndex);
+            initializeCarousel();
         });
 
-        // Fullscreen toggle function
-        function toggleFullScreen() {
-            var fullscreenIcon = document.getElementById("fullscreen-icon");
-            if (!document.fullscreenElement) {
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.msRequestFullscreen) {
-                    document.documentElement.msRequestFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
-            }
+         // Function to initialize the carousel with the desired settings
+         function initializeCarousel() {
+            $('#carouselIndicators').carousel({
+                interval: false, // Disable auto-cycling (auto-advance)
+                ride: false // Disable auto-starting when the page loads
+            });
         }
 
         // Adjust carousel controls dynamically based on image height for the active item
@@ -446,7 +427,7 @@
             const indicators = document.querySelector('.carousel-indicators');
             console.log('indicators: ' + indicators);
             if (indicators) {
-                indicators.style.top = `${ imgHeight - 10 } px`; // You can adjust this ratio as needed
+                indicators.style.top = `${imgHeight - 10} px`; // You can adjust this ratio as needed
                 console.log('indicators.style.top: ' + indicators.style.top);
             }
         }
