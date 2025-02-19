@@ -189,7 +189,7 @@
             you click on a link. To reactivate it, rotate it back to portrait, then back to landscape. ⚠️⚠️
         </p>
     </div>
-    <div id="carouselIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+    <div id="carouselIndicators" class="carousel slide"  data-interval="false">
         <!-- Carousel items here -->
         <!-- Indicators (optional) -->
         <ol class="carousel-indicators">
@@ -327,6 +327,9 @@
                     ride: false // Disable auto-starting when the page loads
                 });
             }
+
+              // Call the function to initialize the carousel
+    initializeCarousel();
     
             // Function to save carousel state (disabled auto-ride) in sessionStorage
             function saveCarouselState() {
