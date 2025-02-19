@@ -24,8 +24,6 @@
             width: 100%;
             height: 100vh;
             /* Ensure it takes the full height of the viewport */
-            
-            /* Hide any overflow */
         }
 
         .carousel-item {
@@ -41,9 +39,10 @@
         .carousel-img {
             width: 100%;
             height: 100%;
-            /* Ensure the image fills the carousel */
+            /* Ensure the image fills the carousel  */
             object-fit: cover;
             /* Make sure the image covers the space without stretching */
+
         }
 
         /* Carousel indicators */
@@ -143,7 +142,7 @@
 
 
         /* Media Query for medium screens */
-        @media (min-width: 577px) and (max-width: 1024px) {
+        @media (min-width: 577px) and (max-width: 1024px) and (orientation: landscape) {
             .carousel-inner {
                 height: auto;
                 /* Remove height constraint on medium screens */
@@ -156,23 +155,27 @@
             .carousel-inner {
                 height: auto;
                 /* Remove height constraint on larger screens */
-                
+
             }
+
             .carousel {
-            padding-bottom:20px;
+                padding-bottom: 20px;
+            }
         }
-        }
+
         /* CSS for portrait mode on mobile devices */
-@media (max-width: 768px) and (orientation: portrait) {
-    .portrait-content {
-        display: block; /* Show content */
-    }
-    .carousel-inner {
+        @media (max-width: 768px) and (orientation: portrait) {
+            .portrait-content {
+                display: block;
+                /* Show content */
+            }
+
+            .carousel-inner {
                 height: auto;
                 /* Remove height constraint on medium screens */
                 overflow: visible;
             }
-}
+        }
     </style>
 
 
@@ -306,7 +309,8 @@
         </a>
     </div>
     <div id="portrait-content" style="display:none;">
-        <p>If you are on a phone, please rotate your screen for the best viewing experience. Fullscreen is disabled when you click on a link. To reactivate it, rotate it back to portrait, then back to landscape.</p>
+        <p>If you are on a phone, please rotate your screen for the best viewing experience. Fullscreen is disabled when
+            you click on a link. To reactivate it, rotate it back to portrait, then back to landscape.</p>
     </div>
 
 
@@ -413,10 +417,10 @@
 
             // Adjust the indicators' position relative to the image height
             const indicators = document.querySelector('.carousel-indicators');
-            console.log('indicators: '+ indicators);
+            console.log('indicators: ' + indicators);
             if (indicators) {
                 indicators.style.top = `${imgHeight - 10}px`; // You can adjust this ratio as needed
-                console.log('indicators.style.top: '+ indicators.style.top);
+                console.log('indicators.style.top: ' + indicators.style.top);
             }
         }
 
@@ -438,24 +442,27 @@
             }
         }
 
-    function checkOrientation() {
-        const portraitContent = document.getElementById('portrait-content');
+        function checkOrientation() {
+            const portraitContent = document.getElementById('portrait-content');
 
-        // Check if the device is in portrait mode and is a mobile device (max-width: 768px)
-        if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
-            portraitContent.style.display = 'block';  // Show content
-        } else {
-            portraitContent.style.display = 'none';   // Hide content
+            console.log('window.innerWidth: ' + window.innerWidth);
+            console.log('window.innerHeight: ' + window.innerHeight);
+
+            // Check if the device is in portrait mode and is a mobile device (max-width: 768px)
+            if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
+                portraitContent.style.display = 'block';  // Show content
+            } else {
+                portraitContent.style.display = 'none';   // Hide content
+            }
         }
-    }
 
-    // Run on load and on resize/orientationchange events
-    window.addEventListener('load', checkOrientation);
-    window.addEventListener('resize', checkOrientation);
-    window.addEventListener('orientationchange', checkOrientation);
+        // Run on load and on resize/orientationchange events
+        window.addEventListener('load', checkOrientation);
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', checkOrientation);
 
     </script>
-    
+
 </body>
 
 </html>
