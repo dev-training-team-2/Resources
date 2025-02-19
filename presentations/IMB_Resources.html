@@ -4,7 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>CE_Metro_-_IMB_Resources</title>
-    <link href="css/idGeneratedStyles.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IMB Resources">
+    <meta name="author" content="IMB">
+    <meta name="keywords" content="IMB, Resources, CE_Metro">
 
     <!-- Add Bootstrap CSS for styles -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -296,124 +299,96 @@
 
 
     <script>
-        // Initialize the carousel to ensure it doesn't auto-ride
-        $(document).ready(function () {
-            // Disable auto-ride behavior
-            $('#carouselIndicators').carousel({
-                interval: false // This ensures the carousel doesn't automatically cycle
-            });
-        });
-
-        // Fullscreen toggle function
-        function toggleFullScreen() {
-            var fullscreenIcon = document.getElementById("fullscreen-icon");
-            if (!document.fullscreenElement) {
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.msRequestFullscreen) {
-                    document.documentElement.msRequestFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
-            }
-        }
-// Adjust carousel controls dynamically based on image height for the active item
-function adjustCarouselControls() {
-        // Get the active carousel item
-        const activeItem = document.querySelector('.carousel-item.active');
-        
-        if (activeItem) {
-            const img = activeItem.querySelector('.carousel-img'); // Find the image in the active item
-
-            // Check if the image has already loaded or set the onload event
-            if (img.complete) {
-                adjustControlArrows(img); // If the image is already loaded, adjust arrows
-            } else {
-                img.onload = function () {
-                    adjustControlArrows(img); // Adjust arrows once the image has loaded
-                };
-            }
-        }
-
-        // After adjusting the controls, pause the carousel to stop it from auto-advancing
-        $('#carouselIndicators').carousel('pause');
-    }
-
-    function adjustControlArrows(img) {
-        const imgHeight = img.clientHeight; // Get the height of the image
-
-        // Adjust carousel control arrows globally (only for the active image)
-        const prevControl = document.querySelector('.carousel-control-prev');
-        const nextControl = document.querySelector('.carousel-control-next');
-
-        if (prevControl && nextControl) {
-            // Center the arrows vertically based on the image height
-            prevControl.style.top = `${(imgHeight / 2) - 25}px`;
-            nextControl.style.top = `${(imgHeight / 2) - 25}px`;
-        }
-
-        // Adjust the indicators' position relative to the image height
-        const indicators = document.querySelector('.carousel-indicators');
-        if (indicators) {
-            indicators.style.bottom = `${imgHeight / 3}px`;
-        }
-    }
-
-    // Initialize the carousel to ensure it doesn't auto-ride
-    $(document).ready(function () {
-        // Disable auto-ride behavior for the carousel
-        $('#carouselIndicators').carousel({
-            interval: false // This ensures the carousel doesn't automatically cycle
-        });
-
-        // Adjust carousel controls once the page is fully loaded
-        window.onload = adjustCarouselControls;
-
-        // Recalculate carousel controls on window resize
-        window.onresize = function () {
-            adjustCarouselControls();
-        };
+       // Initialize the carousel to ensure it doesn't auto-ride
+$(document).ready(function () {
+    // Disable auto-ride behavior for the carousel
+    $('#carouselIndicators').carousel({
+        interval: false // This ensures the carousel doesn't automatically cycle
     });
+
+    // Adjust carousel controls once the page is fully loaded
+    window.onload = adjustCarouselControls;
+
+    // Recalculate carousel controls on window resize
+    window.onresize = function () {
+        adjustCarouselControls();
+    };
 
     // Listen for when the carousel is slid to adjust controls for the new active item
     $('#carouselIndicators').on('slid.bs.carousel', function () {
         adjustCarouselControls(); // Adjust controls when a new slide is active
-        
+
         // Update the active indicator based on the active slide
         updateActiveIndicator();
     });
+});
 
-    // Function to update the active class on the indicators
-    function updateActiveIndicator() {
-        // Remove 'active' class from all indicators
-        const indicators = document.querySelectorAll('.carousel-indicators li');
-        indicators.forEach(indicator => {
-            indicator.classList.remove('active');
-        });
+// Fullscreen toggle function
+function toggleFullScreen() {
+    var fullscreenIcon = document.getElementById("fullscreen-icon");
+    if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
+        }
+        fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+        fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
+    }
+}
 
-        // Get the index of the active slide
-        const activeSlideIndex = $('#carouselIndicators').find('.carousel-item.active').index();
+// Adjust carousel controls dynamically based on image height for the active item
+function adjustCarouselControls() {
+    // Get the active carousel item
+    const activeItem = document.querySelector('.carousel-item.active');
+    
+    if (activeItem) {
+        const img = activeItem.querySelector('.carousel-img'); // Find the image in the active item
 
-        // Add 'active' class to the corresponding indicator
-        const activeIndicator = indicators[activeSlideIndex];
-        if (activeIndicator) {
-            activeIndicator.classList.add('active');
+        // Check if the image has already loaded or set the onload event
+        if (img.complete) {
+            adjustControlArrows(img); // If the image is already loaded, adjust arrows
+        } else {
+            img.onload = function () {
+                adjustControlArrows(img); // Adjust arrows once the image has loaded
+            };
         }
     }
+
+    // After adjusting the controls, pause the carousel to stop it from auto-advancing
+    $('#carouselIndicators').carousel('pause');
+}
+
+function adjustControlArrows(img) {
+    const imgHeight = img.clientHeight; // Get the height of the image
+
+    // Adjust carousel control arrows globally (only for the active image)
+    const prevControl = document.querySelector('.carousel-control-prev');
+    const nextControl = document.querySelector('.carousel-control-next');
+
+    if (prevControl && nextControl) {
+        // Center the arrows vertically based on the image height
+        prevControl.style.top = `${(imgHeight / 2) - 25}px`;
+        nextControl.style.top = `${(imgHeight / 2) - 25}px`;
+    }
+
+    // Adjust the indicators' position relative to the image height
+    const indicators = document.querySelector('.carousel-indicators
+
     </script>
 
 </body>
