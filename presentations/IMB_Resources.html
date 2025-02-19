@@ -184,7 +184,8 @@
 <body id="CE_Metro_-_IMB_Resources">
     <div id="portrait-content" style="padding: 20px; display: none;">
         <p style="padding: 20px; background-color: #b83a4b; color: #fff; font-size: 12pt;">
-            ⚠️⚠️ If you are on a phone, please rotate your screen for the best viewing experience. Fullscreen is disabled when
+            ⚠️⚠️ If you are on a phone, please rotate your screen for the best viewing experience. Fullscreen is
+            disabled when
             you click on a link. To reactivate it, rotate it back to portrait, then back to landscape. ⚠️⚠️
         </p>
     </div>
@@ -237,43 +238,50 @@
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="https://imb.pathwright.com/library/get-to-know-the-international-mission-board-182481/about/">
+                <a href="https://imb.pathwright.com/library/get-to-know-the-international-mission-board-182481/about/"
+                    target="_blank" rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS5.png" alt="" />
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="https://imb.pathwright.com/library/a-voice-for-the-nations-a-course-on-prayer-163951/about/">
+                <a href="https://imb.pathwright.com/library/a-voice-for-the-nations-a-course-on-prayer-163951/about/"
+                    target="_blank" rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS6.png" alt="" />
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="https://imb.pathwright.com/library/sent-to-the-workplace-62082/about/">
+                <a href="https://imb.pathwright.com/library/sent-to-the-workplace-62082/about/" target="_blank"
+                    rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS7.png" alt="" />
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="https://imb.pathwright.com/library/short-term-trip-training-45219/about/">
+                <a href="https://imb.pathwright.com/library/short-term-trip-training-45219/about/" target="_blank"
+                    rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS8.png" alt="" />
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="https://imb.pathwright.com/library/deepen-discipleship-48762/about/">
+                <a href="https://imb.pathwright.com/library/deepen-discipleship-48762/about/" target="_blank"
+                    rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS9.png" alt="" />
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="https://store.imb.org/imb-foundations-companion-guide-digital-download/">
+                <a href="https://store.imb.org/imb-foundations-companion-guide-digital-download/" target="_blank"
+                    rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS10.png" alt="" />
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="https://imb.pathwright.com/library/world-religions-45363/about/">
+                <a href="https://imb.pathwright.com/library/world-religions-45363/about/" target="_blank"
+                    rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS11.png" alt="" />
                 </a>
@@ -287,7 +295,7 @@
                 <img class="carousel-img" src="image/CE_Metro_1-WS13.png" alt="" />
             </div>
             <div class="carousel-item">
-                <a href="https://www.imb.org/events/">
+                <a href="https://www.imb.org/events/" target="_blank" rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS14.png" alt="" />
                 </a>
@@ -297,7 +305,7 @@
                 <img class="carousel-img" src="image/CE_Metro_1-WS15.png" alt="" />
             </div>
             <div class="carousel-item">
-                <a href="https://www.imb.org/training/">
+                <a href="https://www.imb.org/training/" target="_blank" rel="noopener noreferrer">
 
                     <img class="carousel-img" src="image/CE_Metro_1-WS16.png" alt="" />
                 </a>
@@ -314,7 +322,7 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    
+
 
 
     <!-- Fullscreen Button -->
@@ -347,6 +355,24 @@
                 // Update the active indicator based on the active slide
                 updateActiveIndicator();
             });
+        });
+
+        // Save the active slide index to localStorage
+        var carousel = document.querySelector('#carouselIndicators');
+        var carouselInstance = new bootstrap.Carousel(carousel); // Ensure to initialize Bootstrap carousel
+        var activeSlideIndex = localStorage.getItem('activeSlideIndex') || 0;
+
+        // Set the carousel to the last active slide when page reloads
+        carouselInstance.to(activeSlideIndex);
+        console.log("Retrieved active slide index from localStorage:", activeSlideIndex);
+
+        // Save the active slide index on slide change
+        carousel.addEventListener('slid.bs.carousel', function () {
+            var activeIndex = carousel.querySelector('.carousel-item.active').index;
+            console.log("New active slide index after change:", activeIndex);
+
+            localStorage.setItem('activeSlideIndex', activeIndex);
+            console.log("Active slide index saved to localStorage:", activeIndex);
         });
 
         // Fullscreen toggle function
