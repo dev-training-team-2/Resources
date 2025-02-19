@@ -162,6 +162,17 @@
             padding-bottom:20px;
         }
         }
+        /* CSS for portrait mode on mobile devices */
+@media (max-width: 768px) and (orientation: portrait) {
+    .portrait-content {
+        display: block; /* Show content */
+    }
+    .carousel-inner {
+                height: auto;
+                /* Remove height constraint on medium screens */
+                overflow: visible;
+            }
+}
     </style>
 
 
@@ -294,6 +305,9 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
+    <div id="portrait-content" style="display:none;">
+        <p>If you are on a phone, please rotate your screen for the best viewing experience. Fullscreen is disabled when you click on a link. To reactivate it, rotate it back to portrait, then back to landscape.</p>
+    </div>
 
 
     <!-- Fullscreen Button -->
@@ -425,7 +439,7 @@
         }
 
     </script>
-<p> For an optimal viewing experience, we recommend rotating your phone to landscape mode. Please note that fullscreen mode will be disabled when you click on a link. To reactivate fullscreen, simply rotate your device back to portrait mode and then return to landscape. Thank you for your understanding!</p>
+    
 </body>
 
 </html>
