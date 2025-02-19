@@ -373,12 +373,6 @@
 
             localStorage.setItem('activeSlideIndex', activeIndex);
             console.log("Active slide index saved to localStorage:", activeIndex);
-
-
-            // After adjusting the controls, pause the carousel to stop it from auto-advancing
-            setTimeout(function () {
-                $('#carouselIndicators').carousel('pause');
-            }, 50); // A short delay to ensure the DOM is fully updated
         });
 
         // Fullscreen toggle function
