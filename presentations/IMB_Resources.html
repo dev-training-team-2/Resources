@@ -47,7 +47,7 @@
         /* Carousel indicators */
         .carousel-indicators {
             position: absolute;
-            top: 3px;
+            bottom: 10px;
             right: 0;
             margin: 0;
             padding: 0;
@@ -356,8 +356,6 @@ function adjustCarouselControls() {
     function adjustControlArrows(img) {
         const imgHeight = img.clientHeight; // Get the height of the image
 
-        console.log('Image height:', imgHeight);
-
         // Adjust carousel control arrows globally (only for the active image)
         const prevControl = document.querySelector('.carousel-control-prev');
         const nextControl = document.querySelector('.carousel-control-next');
@@ -371,7 +369,7 @@ function adjustCarouselControls() {
         // Adjust the indicators' position relative to the image height
         const indicators = document.querySelector('.carousel-indicators');
         if (indicators) {
-            indicators.style.top = `${imgHeight / 3}px`;
+            indicators.style.bottom = `${imgHeight / 3}px`;
         }
     }
 
