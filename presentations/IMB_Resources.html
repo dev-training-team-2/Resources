@@ -328,22 +328,37 @@
                 });
             }
     
-            // Initialize carousel on page load
-            window.addEventListener('load', function() {
-                initializeCarousel();
+            // Function to save carousel state (disabled auto-ride) in sessionStorage
+            function saveCarouselState() {
+                sessionStorage.setItem('carouselAutoRide', 'false');
+            }
+    
+            // Load carousel state on page load (ensure it stays disabled)
+            function loadCarouselState() {
+                const autoRideState = sessionStorage.getItem('carouselAutoRide');
+                if (autoRideState === 'false') {
+                    $('#carouselIndicators').carousel({
+                        interval: false, // Disable auto-cycling (auto-advance)
+                        ride: false // Disable auto-starting when the page loads
+                    });
+                }
+            }
+    
+            // Initialize the carousel state when the page loads
+            window.addEventListener('load', function () {
+                loadCarouselState();
                 adjustCarouselControls();
             });
     
-            // Reinitialize carousel settings on resize
+            // Reinitialize carousel settings on resize or orientation change
             window.addEventListener('resize', function () {
                 adjustCarouselControls();
-                initializeCarousel();
+                loadCarouselState();  // Ensure the carousel stays in the right state
             });
     
-            // Reinitialize carousel settings on orientation change
             window.addEventListener('orientationchange', function () {
                 adjustCarouselControls();
-                initializeCarousel();
+                loadCarouselState();  // Ensure the carousel stays in the right state
             });
     
             // Adjust carousel controls dynamically based on image height for the active item
@@ -412,12 +427,6 @@
             var carouselInstance = new bootstrap.Carousel(carousel); // Ensure to initialize Bootstrap carousel
             var activeSlideIndex = localStorage.getItem('activeSlideIndex') || 0;
     
-            // Initialize the Bootstrap carousel with ride: false
-            var carouselInstance = new bootstrap.Carousel(carousel, {
-                ride: false, // Disable auto-cycle
-                interval: false // Disable auto-advance
-            });
-    
             // Set the carousel to the last active slide when page reloads
             carouselInstance.to(activeSlideIndex);
     
@@ -445,6 +454,7 @@
             window.addEventListener('orientationchange', checkOrientation);
         });
     </script>
+    
     
 
 </body>
