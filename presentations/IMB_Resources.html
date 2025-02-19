@@ -319,163 +319,133 @@
 
 
     <script>
-        // Initialize the carousel to ensure it doesn't auto-ride
         $(document).ready(function () {
-            // Disable auto-ride behavior for the carousel
-            $('#carouselIndicators').carousel({
-                interval: false, // Disable auto-cycling (auto-advance)
-                ride: false // Disable auto-starting when the page loads
+            // Initialize the carousel with the correct settings
+            function initializeCarousel() {
+                $('#carouselIndicators').carousel({
+                    interval: false, // Disable auto-cycling (auto-advance)
+                    ride: false // Disable auto-starting when the page loads
+                });
+            }
+    
+            // Initialize carousel on page load
+            window.addEventListener('load', function() {
+                initializeCarousel();
+                adjustCarouselControls();
             });
-
-
-            // Adjust carousel controls once the page is fully loaded
-            window.onload = function(){
+    
+            // Reinitialize carousel settings on resize
+            window.addEventListener('resize', function () {
                 adjustCarouselControls();
                 initializeCarousel();
-            };
-
-            // Recalculate carousel controls on window resize
-            window.onresize = function () {
+            });
+    
+            // Reinitialize carousel settings on orientation change
+            window.addEventListener('orientationchange', function () {
                 adjustCarouselControls();
                 initializeCarousel();
-            };
-
-            // Listen for when the carousel is slid to adjust controls for the new active item
-            $('#carouselIndicators').on('slid.bs.carousel', function () {
-                adjustCarouselControls(); // Adjust controls when a new slide is active
-
-                // Update the active indicator based on the active slide
-                updateActiveIndicator();
-                initializeCarousel();
             });
-        });
-
-        // Save the active slide index to localStorage
-        var carousel = document.querySelector('#carouselIndicators');
-        var carouselInstance = new bootstrap.Carousel(carousel); // Ensure to initialize Bootstrap carousel
-        var activeSlideIndex = localStorage.getItem('activeSlideIndex') || 0;
-
-        // Initialize the Bootstrap carousel with the ride option set to 'false' to prevent auto-advancing
-        var carouselInstance = new bootstrap.Carousel(carousel, {
-            ride: false // Disable auto-cycle
-        });
-
-        // Set the carousel to the last active slide when page reloads
-        carouselInstance.to(activeSlideIndex);
-        console.log("Retrieved active slide index from localStorage:", activeSlideIndex);
-
-        // Save the active slide index on slide change
-        carousel.addEventListener('slid.bs.carousel', function () {
-            var activeIndex = carousel.querySelector('.carousel-item.active').index;
-            console.log("New active slide index after change:", activeIndex);
-
-            localStorage.setItem('activeSlideIndex', activeIndex);
-            console.log("Active slide index saved to localStorage:", activeIndex);
-            initializeCarousel();
-        });
-
-         // Function to initialize the carousel with the desired settings
-         function initializeCarousel() {
-            $('#carouselIndicators').carousel({
-                interval: false, // Disable auto-cycling (auto-advance)
-                ride: false // Disable auto-starting when the page loads
-            });
-        }
-
-        // Adjust carousel controls dynamically based on image height for the active item
-        function adjustCarouselControls() {
-            // Get the active carousel item
-            const activeItem = document.querySelector('.carousel-item.active');
-
-            if (activeItem) {
-                const img = activeItem.querySelector('.carousel-img'); // Find the image in the active item
-
-                // Check if the image has already loaded or set the onload event
-                if (img.complete) {
-                    adjustControlArrows(img); // If the image is already loaded, adjust arrows
-                } else {
-                    img.onload = function () {
-                        adjustControlArrows(img); // Adjust arrows once the image has loaded
-                    };
+    
+            // Adjust carousel controls dynamically based on image height for the active item
+            function adjustCarouselControls() {
+                const activeItem = document.querySelector('.carousel-item.active');
+    
+                if (activeItem) {
+                    const img = activeItem.querySelector('.carousel-img'); // Find the image in the active item
+    
+                    // Check if the image has already loaded or set the onload event
+                    if (img.complete) {
+                        adjustControlArrows(img); // If the image is already loaded, adjust arrows
+                    } else {
+                        img.onload = function () {
+                            adjustControlArrows(img); // Adjust arrows once the image has loaded
+                        };
+                    }
+                }
+    
+                // Pause the carousel to ensure it doesn't auto-advance
+                setTimeout(function () {
+                    $('#carouselIndicators').carousel('pause');
+                }, 50); // A short delay to ensure the DOM is fully updated
+            }
+    
+            function adjustControlArrows(img) {
+                const imgHeight = img.clientHeight; // Get the height of the image
+                console.log('imgHeight: ' + imgHeight);
+    
+                // Adjust carousel control arrows globally (only for the active image)
+                const prevControl = document.querySelector('.carousel-control-prev');
+                const nextControl = document.querySelector('.carousel-control-next');
+    
+                if (prevControl && nextControl) {
+                    // Center the arrows vertically based on the image height
+                    prevControl.style.top = `${(imgHeight / 2) - 25}px`;
+                    nextControl.style.top = `${(imgHeight / 2) - 25}px`;
+                }
+    
+                // Adjust the indicators' position relative to the image height
+                const indicators = document.querySelector('.carousel-indicators');
+                if (indicators) {
+                    indicators.style.top = `${imgHeight - 10}px`; // You can adjust this ratio as needed
                 }
             }
-
-            // After adjusting the controls, pause the carousel to stop it from auto-advancing
-            setTimeout(function () {
-                $('#carouselIndicators').carousel('pause');
-            }, 50); // A short delay to ensure the DOM is fully updated
-
-            initializeCarousel();
-
-        }
-
-        function adjustControlArrows(img) {
-            const imgHeight = img.clientHeight; // Get the height of the image
-            console.log('imgHeight: ' + imgHeight);
-
-            console.log('screen.height: ' + screen.height);
-
-            // Adjust carousel control arrows globally (only for the active image)
-            const prevControl = document.querySelector('.carousel-control-prev');
-            const nextControl = document.querySelector('.carousel-control-next');
-
-            if (prevControl && nextControl) {
-                // Center the arrows vertically based on the image height
-                prevControl.style.top = `${(imgHeight / 2) - 25}px`;  // Correct syntax with backticks
-                nextControl.style.top = `${(imgHeight / 2) - 25}px`;  // Correct syntax with backticks
+    
+            // Function to update the active class on the indicators
+            function updateActiveIndicator() {
+                const indicators = document.querySelectorAll('.carousel-indicators li');
+                indicators.forEach(indicator => {
+                    indicator.classList.remove('active');
+                });
+    
+                // Get the index of the active slide
+                const activeSlideIndex = $('#carouselIndicators').find('.carousel-item.active').index();
+    
+                // Add 'active' class to the corresponding indicator
+                const activeIndicator = indicators[activeSlideIndex];
+                if (activeIndicator) {
+                    activeIndicator.classList.add('active');
+                }
             }
-
-            // Adjust the indicators' position relative to the image height
-            const indicators = document.querySelector('.carousel-indicators');
-            console.log('indicators: ' + indicators);
-            if (indicators) {
-                indicators.style.top = `${imgHeight - 10} px`; // You can adjust this ratio as needed
-                console.log('indicators.style.top: ' + indicators.style.top);
-            }
-            initializeCarousel();
-        }
-
-        // Function to update the active class on the indicators
-        function updateActiveIndicator() {
-            // Remove 'active' class from all indicators
-            const indicators = document.querySelectorAll('.carousel-indicators li');
-            indicators.forEach(indicator => {
-                indicator.classList.remove('active');
+    
+            // Save the active slide index to localStorage
+            var carousel = document.querySelector('#carouselIndicators');
+            var carouselInstance = new bootstrap.Carousel(carousel); // Ensure to initialize Bootstrap carousel
+            var activeSlideIndex = localStorage.getItem('activeSlideIndex') || 0;
+    
+            // Initialize the Bootstrap carousel with ride: false
+            var carouselInstance = new bootstrap.Carousel(carousel, {
+                ride: false, // Disable auto-cycle
+                interval: false // Disable auto-advance
             });
-
-            // Get the index of the active slide
-            const activeSlideIndex = $('#carouselIndicators').find('.carousel-item.active').index();
-
-            // Add 'active' class to the corresponding indicator
-            const activeIndicator = indicators[activeSlideIndex];
-            if (activeIndicator) {
-                activeIndicator.classList.add('active');
+    
+            // Set the carousel to the last active slide when page reloads
+            carouselInstance.to(activeSlideIndex);
+    
+            // Save the active slide index on slide change
+            carousel.addEventListener('slid.bs.carousel', function () {
+                var activeIndex = carousel.querySelector('.carousel-item.active').index;
+                localStorage.setItem('activeSlideIndex', activeIndex);
+                console.log("Active slide index saved to localStorage:", activeIndex);
+            });
+    
+            // Orientation check to show/hide portrait content
+            function checkOrientation() {
+                const portraitContent = document.getElementById('portrait-content');
+    
+                if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
+                    portraitContent.style.display = 'block';  // Show content
+                } else {
+                    portraitContent.style.display = 'none';   // Hide content
+                }
             }
-            initializeCarousel();
-        }
-
-        function checkOrientation() {
-            const portraitContent = document.getElementById('portrait-content');
-
-            console.log('window.innerWidth: ' + window.innerWidth);
-            console.log('window.innerHeight: ' + window.innerHeight);
-
-            // Check if the device is in portrait mode and is a mobile device (max-width: 768px)
-            if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
-                portraitContent.style.display = 'block';  // Show content
-            } else {
-                portraitContent.style.display = 'none';   // Hide content
-            }
-            initializeCarousel() ;
-            
-        }
-
-        // Run on load and on resize/orientationchange events
-        window.addEventListener('load', checkOrientation);
-        window.addEventListener('resize', checkOrientation);
-        window.addEventListener('orientationchange', checkOrientation);
-
+    
+            // Run on load, resize, or orientationchange events
+            window.addEventListener('load', checkOrientation);
+            window.addEventListener('resize', checkOrientation);
+            window.addEventListener('orientationchange', checkOrientation);
+        });
     </script>
+    
 
 </body>
 
