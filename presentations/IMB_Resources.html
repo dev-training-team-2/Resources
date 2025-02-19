@@ -438,6 +438,22 @@
             }
         }
 
+    function checkOrientation() {
+        const portraitContent = document.getElementById('portrait-content');
+
+        // Check if the device is in portrait mode and is a mobile device (max-width: 768px)
+        if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
+            portraitContent.style.display = 'block';  // Show content
+        } else {
+            portraitContent.style.display = 'none';   // Hide content
+        }
+    }
+
+    // Run on load and on resize/orientationchange events
+    window.addEventListener('load', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+
     </script>
     
 </body>
