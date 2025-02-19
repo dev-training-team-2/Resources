@@ -362,6 +362,11 @@
         var carouselInstance = new bootstrap.Carousel(carousel); // Ensure to initialize Bootstrap carousel
         var activeSlideIndex = localStorage.getItem('activeSlideIndex') || 0;
 
+        // Initialize the Bootstrap carousel with the `ride` option set to 'false' to prevent auto-advancing
+var carouselInstance = new bootstrap.Carousel(carousel, {
+    ride: false // Disable auto-cycle
+});
+
         // Set the carousel to the last active slide when page reloads
         carouselInstance.to(activeSlideIndex);
         console.log("Retrieved active slide index from localStorage:", activeSlideIndex);
