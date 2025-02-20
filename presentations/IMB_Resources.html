@@ -407,12 +407,14 @@
             });
         });
 
-        // Fullscreen toggle function
+        ////////////////////////////// Fullscreen toggle function //////////////////////////////
         // Fullscreen toggle function (with improvements)
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
 
+            // Check if fullscreen is already active
             if (!document.fullscreenElement) {
+                // Trigger fullscreen request based on available API
                 if (document.documentElement.requestFullscreen) {
                     document.documentElement.requestFullscreen();
                 } else if (document.documentElement.webkitRequestFullscreen) {  // Safari/iOS
@@ -423,7 +425,11 @@
                     document.documentElement.msRequestFullscreen();
                 }
                 fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
+
+                // Hide the fullscreen button once fullscreen is activated
+                fullscreenButton.style.display = 'none';
             } else {
+                // Exit fullscreen mode
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 } else if (document.webkitExitFullscreen) {
@@ -434,6 +440,10 @@
                     document.msExitFullscreen();
                 }
                 fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
+
+                // Show the fullscreen button again when exiting fullscreen
+                fullscreenButton.style.display = 'block';
+
             }
         }
 
@@ -462,10 +472,12 @@
 
         // Detect landscape orientation change on phone
         function handleOrientationChange() {
-            // Only trigger fullscreen on landscape mode
-            if (window.orientation === 90 || window.orientation === -90) {
+            // Only trigger fullscreen on landscape mode and user gesture
+            if ((window.orientation === 90 || window.orientation === -90) && isFullscreenAvailable()) {
                 console.log('Landscape mode detected, simulating fullscreen...');
-                toggleFullScreen(); // Simulate fullscreen on landscape orientation
+
+                // Here we manually trigger fullscreen on a user gesture
+                document.querySelector('.fullscreen-btn').click(); // Simulate a user click
             }
         }
 
@@ -478,6 +490,12 @@
         // Listen for orientation change to simulate fullscreen on phone in landscape
         window.addEventListener('orientationchange', handleOrientationChange);
 
+        // Make sure fullscreen only works when the user interacts with the button directly
+        document.querySelector('.fullscreen-btn').addEventListener('click', toggleFullScreen);
+
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////
 
 
         // Adjust carousel controls dynamically based on image height for the active item
