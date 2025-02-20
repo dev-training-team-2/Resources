@@ -138,6 +138,7 @@
                 font-size: 1.25rem;
                 overflow: hidden;
             }
+
             .fullscreen-btn {
                 display: block;
                 /* Hide the fullscreen button on smaller screens */
@@ -152,6 +153,7 @@
                 /* Remove height constraint on medium screens */
                 overflow: hidden;
             }
+
             .fullscreen-btn {
                 display: block;
                 /* Hide the fullscreen button on medium screens */
@@ -169,7 +171,8 @@
             .carousel {
                 padding-bottom: 20px;
             }
-            .fullscreen-btn {    
+
+            .fullscreen-btn {
                 display: block;
                 /* Hide the fullscreen button on larger screens */
             }
@@ -337,9 +340,10 @@
 
     <!-- Fullscreen Button -->
     <!-- Fullscreen Button with SVG Icon -->
-<button class="fullscreen-btn" onclick="toggleFullScreen()">
-    <img id="fullscreen-icon"  src="https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg" alt="Fullscreen Icon" />
-</button>
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">
+        <img id="fullscreen-icon" src="https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg"
+            alt="Fullscreen Icon" />
+    </button>
 
 
     <script>
@@ -354,10 +358,23 @@
 
             // Check if there's a saved slide index in sessionStorage
             const savedSlideIndex = sessionStorage.getItem('activeSlideIndex');
+
             if (savedSlideIndex !== null) {
-                // If saved, set the carousel to the saved slide
-                $('#carouselIndicators').carousel(parseInt(savedSlideIndex));
+                // If a saved index exists, parse it to an integer and set the carousel to the saved slide
+                const slideIndex = parseInt(savedSlideIndex, 10);
+
+                // Check if the parsed value is a valid number
+                if (!isNaN(slideIndex)) {
+                    $('#carouselIndicators').carousel(slideIndex); // Set carousel to saved slide index
+                    console.log('Restored carousel to slide index: ' + slideIndex);
+                } else {
+                    console.warn('Invalid slide index saved in sessionStorage: ' + savedSlideIndex);
+                }
+            } else {
+                console.log('No saved slide index found in sessionStorage.');
             }
+
+            // Log the saved slide index for debugging purposes
             console.log('savedSlideIndex: ' + savedSlideIndex);
 
             // Store the active slide index before navigating away
@@ -386,65 +403,65 @@
         });
 
         // Fullscreen toggle function
-         // Function to check if fullscreen is available
-         function isFullscreenAvailable() {
-    const fullscreenAvailable = (
-        document.documentElement.requestFullscreen || 
-        document.documentElement.webkitRequestFullscreen ||  // Safari/iOS
-        document.documentElement.mozRequestFullScreen || 
-        document.documentElement.msRequestFullscreen || 
-        (document.documentElement.webkitEnterFullscreen && document.documentElement.webkitRequestFullscreen)
-    );
+        // Function to check if fullscreen is available
+        function isFullscreenAvailable() {
+            const fullscreenAvailable = (
+                document.documentElement.requestFullscreen ||
+                document.documentElement.webkitRequestFullscreen ||  // Safari/iOS
+                document.documentElement.mozRequestFullScreen ||
+                document.documentElement.msRequestFullscreen ||
+                (document.documentElement.webkitEnterFullscreen && document.documentElement.webkitRequestFullscreen)
+            );
 
-    console.log("Fullscreen Available: ", fullscreenAvailable);  // Log the result of the check
-    return fullscreenAvailable;
-}
-
-
-
-    // Show the fullscreen button only when it's available
-    function showFullscreenButton() {
-        const fullscreenButton = document.querySelector('.fullscreen-btn');
-        if (isFullscreenAvailable()) {
-            fullscreenButton.style.display = 'block'; // Show the button
-        } else {
-            fullscreenButton.style.display = 'none'; // Hide the button if fullscreen isn't available
+            console.log("Fullscreen Available: ", fullscreenAvailable);  // Log the result of the check
+            return fullscreenAvailable;
         }
-    }
 
-    // Call showFullscreenButton on page load to check fullscreen availability
-    window.onload = showFullscreenButton;
 
-    // Also call showFullscreenButton on window resize to adjust button visibility if necessary
-    window.onresize = showFullscreenButton;
 
-    // Fullscreen toggle function
-    function toggleFullScreen() {
-        var fullscreenIcon = document.getElementById("fullscreen-icon");
-        if (!document.fullscreenElement) {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.msRequestFullscreen) {
-                document.documentElement.msRequestFullscreen();
+        // Show the fullscreen button only when it's available
+        function showFullscreenButton() {
+            const fullscreenButton = document.querySelector('.fullscreen-btn');
+            if (isFullscreenAvailable()) {
+                fullscreenButton.style.display = 'block'; // Show the button
+            } else {
+                fullscreenButton.style.display = 'none'; // Hide the button if fullscreen isn't available
             }
-            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
-            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
         }
-    }
+
+        // Call showFullscreenButton on page load to check fullscreen availability
+        window.onload = showFullscreenButton;
+
+        // Also call showFullscreenButton on window resize to adjust button visibility if necessary
+        window.onresize = showFullscreenButton;
+
+        // Fullscreen toggle function
+        function toggleFullScreen() {
+            var fullscreenIcon = document.getElementById("fullscreen-icon");
+            if (!document.fullscreenElement) {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
+            }
+        }
 
 
         // Adjust carousel controls dynamically based on image height for the active item
