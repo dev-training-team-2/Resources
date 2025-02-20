@@ -408,45 +408,14 @@
         });
 
         // Fullscreen toggle function
-        // Function to check if fullscreen is available
-        function isFullscreenAvailable() {
-            const fullscreenAvailable = (
-                document.documentElement.requestFullscreen ||
-                document.documentElement.webkitRequestFullscreen ||  // Safari/iOS
-                document.documentElement.mozRequestFullScreen ||
-                document.documentElement.msRequestFullscreen ||
-                (document.documentElement.webkitEnterFullscreen && document.documentElement.webkitRequestFullscreen)
-            );
-
-            console.log("Fullscreen Available: ", fullscreenAvailable);  // Log the result of the check
-            return fullscreenAvailable;
-        }
-
-
-
-        // Show the fullscreen button only when it's available
-        function showFullscreenButton() {
-            const fullscreenButton = document.querySelector('.fullscreen-btn');
-            if (isFullscreenAvailable()) {
-                fullscreenButton.style.display = 'block'; // Show the button
-            } else {
-                fullscreenButton.style.display = 'none'; // Hide the button if fullscreen isn't available
-            }
-        }
-
-        // Call showFullscreenButton on page load to check fullscreen availability
-        window.onload = showFullscreenButton;
-
-        // Also call showFullscreenButton on window resize to adjust button visibility if necessary
-        window.onresize = showFullscreenButton;
-
-        // Fullscreen toggle function
+        // Fullscreen toggle function (with improvements)
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
+
             if (!document.fullscreenElement) {
                 if (document.documentElement.requestFullscreen) {
                     document.documentElement.requestFullscreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
+                } else if (document.documentElement.webkitRequestFullscreen) {  // Safari/iOS
                     document.documentElement.webkitRequestFullscreen();
                 } else if (document.documentElement.mozRequestFullScreen) {
                     document.documentElement.mozRequestFullScreen();
@@ -467,6 +436,48 @@
                 fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
             }
         }
+
+        // Show the fullscreen button only when fullscreen is available
+        function showFullscreenButton() {
+            const fullscreenButton = document.querySelector('.fullscreen-btn');
+            if (isFullscreenAvailable()) {
+                fullscreenButton.style.display = 'block'; // Show the button
+            } else {
+                fullscreenButton.style.display = 'none'; // Hide the button if fullscreen isn't available
+            }
+        }
+
+        // Function to check if fullscreen is available
+        function isFullscreenAvailable() {
+            const fullscreenAvailable = (
+                document.documentElement.requestFullscreen ||
+                document.documentElement.webkitRequestFullscreen ||  // Safari/iOS
+                document.documentElement.mozRequestFullScreen ||
+                document.documentElement.msRequestFullscreen ||
+                (document.documentElement.webkitEnterFullscreen && document.documentElement.webkitRequestFullscreen)
+            );
+            console.log("Fullscreen Available: ", fullscreenAvailable);
+            return fullscreenAvailable;
+        }
+
+        // Detect landscape orientation change on phone
+        function handleOrientationChange() {
+            // Only trigger fullscreen on landscape mode
+            if (window.orientation === 90 || window.orientation === -90) {
+                console.log('Landscape mode detected, simulating fullscreen...');
+                toggleFullScreen(); // Simulate fullscreen on landscape orientation
+            }
+        }
+
+        // Call showFullscreenButton on page load to check fullscreen availability
+        window.onload = showFullscreenButton;
+
+        // Also call showFullscreenButton on window resize to adjust button visibility if necessary
+        window.onresize = showFullscreenButton;
+
+        // Listen for orientation change to simulate fullscreen on phone in landscape
+        window.addEventListener('orientationchange', handleOrientationChange);
+
 
 
         // Adjust carousel controls dynamically based on image height for the active item
