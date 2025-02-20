@@ -409,7 +409,6 @@
 
         ////////////////////////////// Fullscreen toggle function //////////////////////////////
         // Fullscreen toggle function (with improvements)
-        // Fullscreen toggle function (with improvements)
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
             const fullscreenButton = document.querySelector('.fullscreen-btn'); // Correct scope for fullscreenButton
@@ -418,6 +417,7 @@
             if (!document.fullscreenElement) {
                 // Trigger fullscreen request based on available API
                 try {
+                    // Make sure fullscreen is triggered by a user gesture (click)
                     if (document.documentElement.requestFullscreen) {
                         document.documentElement.requestFullscreen();
                     } else if (document.documentElement.webkitRequestFullscreen) {  // Safari/iOS
