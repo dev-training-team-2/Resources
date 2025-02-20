@@ -356,6 +356,11 @@
 
             console.log('carousel initialized with autio-ride disabled');
 
+            // Initialize activeSlideIndex from sessionStorage or default to 0
+            let activeSlideIndex = sessionStorage.getItem('activeSlideIndex') ? parseInt(sessionStorage.getItem('activeSlideIndex')) : 0;
+
+            console.log("Active Slide Index: ", activeSlideIndex);
+
             // Check if there's a saved slide index in sessionStorage
             const savedSlideIndex = sessionStorage.getItem('activeSlideIndex');
 
