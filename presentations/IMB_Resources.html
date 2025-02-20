@@ -408,6 +408,7 @@
         });
 
         ////////////////////////////// Fullscreen toggle function //////////////////////////////
+
         // Fullscreen toggle function (with improvements)
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
@@ -417,7 +418,6 @@
             if (!document.fullscreenElement) {
                 // Trigger fullscreen request based on available API
                 try {
-                    // Make sure fullscreen is triggered by a user gesture (click)
                     if (document.documentElement.requestFullscreen) {
                         document.documentElement.requestFullscreen();
                     } else if (document.documentElement.webkitRequestFullscreen) {  // Safari/iOS
@@ -429,8 +429,8 @@
                     }
                     fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
 
-                    // Hide the fullscreen button once fullscreen is activated
-                    fullscreenButton.style.display = 'none';
+                    // Hide the fullscreen button once fullscreen is activated (but not completely remove it)
+                    fullscreenButton.style.visibility = 'hidden'; // Hide without using display:none, to keep space occupied
                 } catch (e) {
                     console.error("Fullscreen request failed: ", e);
                 }
@@ -449,7 +449,7 @@
                     fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
 
                     // Show the fullscreen button again when exiting fullscreen
-                    fullscreenButton.style.display = 'block';
+                    fullscreenButton.style.visibility = 'visible'; // Make sure it's visible after exit
                 } catch (e) {
                     console.error("Exit fullscreen failed: ", e);
                 }
@@ -460,9 +460,9 @@
         function showFullscreenButton() {
             const fullscreenButton = document.querySelector('.fullscreen-btn');
             if (isFullscreenAvailable()) {
-                fullscreenButton.style.display = 'block'; // Show the button
+                fullscreenButton.style.visibility = 'visible'; // Ensure button is visible if fullscreen is available
             } else {
-                fullscreenButton.style.display = 'none'; // Hide the button if fullscreen isn't available
+                fullscreenButton.style.visibility = 'hidden'; // Hide the button if fullscreen isn't available
             }
         }
 
@@ -486,7 +486,7 @@
                 console.log('Landscape mode detected, showing fullscreen button...');
                 // Just show the fullscreen button in landscape (no auto fullscreen)
                 const fullscreenButton = document.querySelector('.fullscreen-btn');
-                fullscreenButton.style.display = 'block';  // Ensure the button is visible
+                fullscreenButton.style.visibility = 'visible';  // Ensure the button is visible in landscape
             }
         }
 
@@ -501,7 +501,6 @@
 
         // Make sure fullscreen only works when the user interacts with the button directly
         document.querySelector('.fullscreen-btn').addEventListener('click', toggleFullScreen);
-
 
 
         //////////////////////////////////////////////////////////////////////////////////////////
