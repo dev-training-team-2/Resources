@@ -483,10 +483,10 @@
         function handleOrientationChange() {
             // Only trigger fullscreen on landscape mode and user gesture
             if ((window.orientation === 90 || window.orientation === -90) && isFullscreenAvailable()) {
-                console.log('Landscape mode detected, simulating fullscreen...');
-
-                // Here we manually trigger fullscreen on a user gesture
-                document.querySelector('.fullscreen-btn').click(); // Simulate a user click
+                console.log('Landscape mode detected, showing fullscreen button...');
+                // Just show the fullscreen button in landscape (no auto fullscreen)
+                const fullscreenButton = document.querySelector('.fullscreen-btn');
+                fullscreenButton.style.display = 'block';  // Ensure the button is visible
             }
         }
 
@@ -501,6 +501,7 @@
 
         // Make sure fullscreen only works when the user interacts with the button directly
         document.querySelector('.fullscreen-btn').addEventListener('click', toggleFullScreen);
+
 
 
         //////////////////////////////////////////////////////////////////////////////////////////
