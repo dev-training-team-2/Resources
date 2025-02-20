@@ -409,41 +409,50 @@
 
         ////////////////////////////// Fullscreen toggle function //////////////////////////////
         // Fullscreen toggle function (with improvements)
+        // Fullscreen toggle function (with improvements)
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
+            const fullscreenButton = document.querySelector('.fullscreen-btn'); // Correct scope for fullscreenButton
 
             // Check if fullscreen is already active
             if (!document.fullscreenElement) {
                 // Trigger fullscreen request based on available API
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {  // Safari/iOS
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.msRequestFullscreen) {
-                    document.documentElement.msRequestFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
+                try {
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {  // Safari/iOS
+                        document.documentElement.webkitRequestFullscreen();
+                    } else if (document.documentElement.mozRequestFullScreen) {
+                        document.documentElement.mozRequestFullScreen();
+                    } else if (document.documentElement.msRequestFullscreen) {
+                        document.documentElement.msRequestFullscreen();
+                    }
+                    fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
 
-                // Hide the fullscreen button once fullscreen is activated
-                fullscreenButton.style.display = 'none';
+                    // Hide the fullscreen button once fullscreen is activated
+                    fullscreenButton.style.display = 'none';
+                } catch (e) {
+                    console.error("Fullscreen request failed: ", e);
+                }
             } else {
                 // Exit fullscreen mode
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
+                try {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                    fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
+
+                    // Show the fullscreen button again when exiting fullscreen
+                    fullscreenButton.style.display = 'block';
+                } catch (e) {
+                    console.error("Exit fullscreen failed: ", e);
                 }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
-
-                // Show the fullscreen button again when exiting fullscreen
-                fullscreenButton.style.display = 'block';
-
             }
         }
 
@@ -492,7 +501,6 @@
 
         // Make sure fullscreen only works when the user interacts with the button directly
         document.querySelector('.fullscreen-btn').addEventListener('click', toggleFullScreen);
-
 
 
         //////////////////////////////////////////////////////////////////////////////////////////
