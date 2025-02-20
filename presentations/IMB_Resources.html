@@ -388,14 +388,18 @@
         // Fullscreen toggle function
          // Function to check if fullscreen is available
          function isFullscreenAvailable() {
-    return (
+    const fullscreenAvailable = (
         document.documentElement.requestFullscreen || 
         document.documentElement.webkitRequestFullscreen ||  // Safari/iOS
         document.documentElement.mozRequestFullScreen || 
         document.documentElement.msRequestFullscreen || 
         (document.documentElement.webkitEnterFullscreen && document.documentElement.webkitRequestFullscreen)
     );
+
+    console.log("Fullscreen Available: ", fullscreenAvailable);  // Log the result of the check
+    return fullscreenAvailable;
 }
+
 
 
     // Show the fullscreen button only when it's available
