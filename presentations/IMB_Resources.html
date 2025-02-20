@@ -107,8 +107,8 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            background-color: #1b365d;
-            color: white;
+            background-color: #b2b4b2;
+            color: black;
             border: none;
             padding: 10px;
             border-radius: 5px;
@@ -119,7 +119,7 @@
 
         /* Fullscreen button hover effect */
         .fullscreen-btn:hover {
-            background-color: #b83a4b;
+            background-color: #707372;
         }
 
         /* Media Query for smaller screens */
@@ -138,6 +138,10 @@
                 font-size: 1.25rem;
                 overflow: hidden;
             }
+            fullscreen-btn {
+                display: block;
+                /* Hide the fullscreen button on smaller screens */
+            }
         }
 
 
@@ -147,6 +151,10 @@
                 height: auto;
                 /* Remove height constraint on medium screens */
                 overflow: hidden;
+            }
+            fullscreen-btn {
+                display: block;
+                /* Hide the fullscreen button on medium screens */
             }
         }
 
@@ -161,6 +169,10 @@
             .carousel {
                 padding-bottom: 20px;
             }
+            fullscreen-btn {    
+                display: block;
+                /* Hide the fullscreen button on larger screens */
+            }
         }
 
         /* CSS for portrait mode on mobile devices */
@@ -174,6 +186,11 @@
                 height: auto;
                 /* Remove height constraint on medium screens */
                 overflow: visible;
+            }
+
+            fullscreen-btn {
+                display: none;
+                /* Hide the fullscreen button in portrait mode */
             }
         }
     </style>
@@ -319,10 +336,10 @@
 
 
     <!-- Fullscreen Button -->
-    <!-- Fullscreen Button with SVG Icon --><!-- 
+    <!-- Fullscreen Button with SVG Icon -->
 <button class="fullscreen-btn" onclick="toggleFullScreen()">
     <img id="fullscreen-icon"  src="https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg" alt="Fullscreen Icon" />
-</button> -->
+</button>
 
 
     <script>
@@ -369,32 +386,60 @@
         });
 
         // Fullscreen toggle function
-        function toggleFullScreen() {
-            var fullscreenIcon = document.getElementById("fullscreen-icon");
-            if (!document.fullscreenElement) {
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.msRequestFullscreen) {
-                    document.documentElement.msRequestFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-                fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
-            }
+         // Function to check if fullscreen is available
+    function isFullscreenAvailable() {
+        return (
+            document.documentElement.requestFullscreen || 
+            document.documentElement.webkitRequestFullscreen ||
+            document.documentElement.mozRequestFullScreen ||
+            document.documentElement.msRequestFullscreen
+        );
+    }
+
+    // Show the fullscreen button only when it's available
+    function showFullscreenButton() {
+        const fullscreenButton = document.querySelector('.fullscreen-btn');
+        if (isFullscreenAvailable()) {
+            fullscreenButton.style.display = 'block'; // Show the button
+        } else {
+            fullscreenButton.style.display = 'none'; // Hide the button if fullscreen isn't available
         }
+    }
+
+    // Call showFullscreenButton on page load to check fullscreen availability
+    window.onload = showFullscreenButton;
+
+    // Also call showFullscreenButton on window resize to adjust button visibility if necessary
+    window.onresize = showFullscreenButton;
+
+    // Fullscreen toggle function
+    function toggleFullScreen() {
+        var fullscreenIcon = document.getElementById("fullscreen-icon");
+        if (!document.fullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            }
+            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg";
+        }
+    }
+
 
         // Adjust carousel controls dynamically based on image height for the active item
         function adjustCarouselControls() {
