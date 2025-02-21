@@ -408,7 +408,6 @@
         });
 
         ////////////////////////////// Fullscreen toggle function //////////////////////////////
-
         // Fullscreen toggle function (with improvements)
         function toggleFullScreen() {
             var fullscreenIcon = document.getElementById("fullscreen-icon");
@@ -428,7 +427,6 @@
                         document.documentElement.msRequestFullscreen();
                     }
                     fullscreenIcon.src = "https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen-exit.svg";
-
                 } catch (e) {
                     console.error("Fullscreen request failed: ", e);
                 }
@@ -477,17 +475,16 @@
             return fullscreenAvailable;
         }
 
+        // Function to hide fullscreen button for phones (using window width and height)
         function hideFullscreenButtonForPhones() {
             // Get the screen width and height
             const screenWidth = window.innerWidth;
             const screenHeight = window.innerHeight;
 
             // Define the maximum width for tablets (in px), phones are usually smaller than tablets
-            if (window.innerWidth < window.innerHeight) {
-                // If in portrait mode (height > width), use 768px as the maximum width for tablets
-                tabletMaxWidth = 768;
-            } else {
-                // If in landscape mode (width > height), use 950px as the maximum width for tablets
+            let tabletMaxWidth = 768;  // Default value for portrait
+            if (screenWidth > screenHeight) {
+                // Landscape mode
                 tabletMaxWidth = 950;
             }
 
@@ -512,23 +509,18 @@
             }
         }
 
-        // Call the function on page load to check screen size
-        window.onload = hideFullscreenButtonForPhones;
+        // Combine the functions for page load and resize
+        function init() {
+            hideFullscreenButtonForPhones();
+            showFullscreenButton();
+        }
 
-        // Call the function on window resize to adjust button visibility if necessary
-        window.onresize = hideFullscreenButtonForPhones;
-
-
-        // Call showFullscreenButton on page load to check fullscreen availability
-        window.onload = showFullscreenButton;
-
-        // Also call showFullscreenButton on window resize to adjust button visibility if necessary
-        window.onresize = showFullscreenButton;
-
+        // Call the init function on page load and window resize
+        window.onload = init;
+        window.onresize = init;
 
         // Make sure fullscreen only works when the user interacts with the button directly
         document.querySelector('.fullscreen-btn').addEventListener('click', toggleFullScreen);
-
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
