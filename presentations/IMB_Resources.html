@@ -477,16 +477,37 @@
             return fullscreenAvailable;
         }
 
-        // Detect landscape orientation change on phone  
-        //function handleOrientationChange() {
-            // Only trigger fullscreen on landscape mode and user gesture
-        //    if ((window.orientation === 90 || window.orientation === -90) && isFullscreenAvailable()) {
-        //        console.log('Landscape mode detected, showing fullscreen button...');
-                // Just show the fullscreen button in landscape (no auto fullscreen)
-        //        const fullscreenButton = document.querySelector('.fullscreen-btn');
-        //        fullscreenButton.style.visibility = 'visible';  // Ensure the button is visible in landscape
-        //    }
-        //}
+        function hideFullscreenButtonForPhones() {
+    // Get the screen width and height
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    // Define the maximum width for tablets (in px), phones are usually smaller than tablets
+    const tabletMaxWidth = 1024;
+
+    // Check if the screen width is below the tablet threshold (i.e., it's a phone)
+    const isPhone = screenWidth <= tabletMaxWidth;
+
+    // Get the fullscreen button
+    const fullscreenButton = document.querySelector('.fullscreen-btn');
+
+    if (isPhone) {
+        // Hide the fullscreen button for phones
+        fullscreenButton.style.display = 'none';
+        console.log('Fullscreen button hidden for phones');
+    } else {
+        // Show the fullscreen button for tablets and larger devices
+        fullscreenButton.style.display = 'block';
+        console.log('Fullscreen button visible for tablets and larger devices');
+    }
+}
+
+// Call the function on page load to check screen size
+window.onload = hideFullscreenButtonForPhones;
+
+// Call the function on window resize to adjust button visibility if necessary
+window.onresize = hideFullscreenButtonForPhones;
+
 
         // Call showFullscreenButton on page load to check fullscreen availability
         window.onload = showFullscreenButton;
@@ -495,7 +516,7 @@
         window.onresize = showFullscreenButton;
 
         // Listen for orientation change to simulate fullscreen on phone in landscape
-        //window.addEventListener('orientationchange', handleOrientationChange);
+        window.addEventListener('orientationchange', hideFullscreenButtonForPhones);
 
         // Make sure fullscreen only works when the user interacts with the button directly
         document.querySelector('.fullscreen-btn').addEventListener('click', toggleFullScreen);
