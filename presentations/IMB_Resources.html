@@ -122,7 +122,38 @@
             background-color: #707372;
         }
 
-        
+        /* Style the download button */
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            /* Adjust as needed for spacing from the bottom */
+            left: 20px;
+            /* Adjust as needed for spacing from the left */
+            z-index: 1000;
+            /* Ensure it's on top of other elements */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            /* Set the size of the button */
+            height: 50px;
+            /* Set the size of the button */
+            background-color: transparent;
+            /* No background color */
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Optional: Adjust the icon size */
+        .download-btn img {
+            width: 30px;
+            /* Set the size of the icon */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+
+
         /* Media Query for large screens */
         @media (min-width: 1025px) {
             .carousel-inner {
@@ -142,7 +173,7 @@
         }
 
         /* Media Query for medium screens */
-        @media (min-width: 577px) and (max-width: 1024px)  {
+        @media (min-width: 577px) and (max-width: 1024px) {
             .carousel-inner {
                 height: auto;
                 /* Remove height constraint on medium screens */
@@ -178,8 +209,8 @@
             }
         }
 
-         /* CSS for landscape mode on mobile devices */
-         @media (max-width: 768px) and (orientation: landscape) {
+        /* CSS for landscape mode on mobile devices */
+        @media (max-width: 768px) and (orientation: landscape) {
             .portrait-content {
                 display: none;
                 /* Show content */
@@ -363,6 +394,12 @@
         <img id="fullscreen-icon" src="https://dev-training-team-2.github.io/Resources/assets/lib/icons/fullscreen.svg"
             alt="Fullscreen Icon" />
     </button>
+    <!-- Download Button -->
+    <button class="download-btn">
+        <a href="https://indd.adobe.com/view/d66c74e3-b27d-4d90-b239-253747e83105" target="_blank" class="download-btn">
+            <img src="https://dev-training-team-2.github.io/Resources/assets/lib/icons/download.svg" alt="Download" />
+        </a></button>
+
 
 
     <script>
