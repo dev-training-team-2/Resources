@@ -478,37 +478,45 @@
         }
 
         function hideFullscreenButtonForPhones() {
-    // Get the screen width and height
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+            // Get the screen width and height
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
 
-    // Define the maximum width for tablets (in px), phones are usually smaller than tablets
-    const tabletMaxWidth = 950;
+            // Define the maximum width for tablets (in px), phones are usually smaller than tablets
+            if (window.innerWidth < window.innerHeight) {
+                // If in portrait mode (height > width), use 768px as the maximum width for tablets
+                tabletMaxWidth = 768;
+            } else {
+                // If in landscape mode (width > height), use 950px as the maximum width for tablets
+                tabletMaxWidth = 950;
+            }
 
-    // Check if the screen width is below the tablet threshold (i.e., it's a phone)
-    const isPhone = screenWidth <= tabletMaxWidth;
+            console.log('tabletMaxWidth: ' + tabletMaxWidth);
 
-    console.log('isPhone: ' + isPhone);
+            // Check if the screen width is below the tablet threshold (i.e., it's a phone)
+            const isPhone = screenWidth <= tabletMaxWidth;
 
-    // Get the fullscreen button
-    const fullscreenButton = document.querySelector('.fullscreen-btn');
+            console.log('isPhone: ' + isPhone);
 
-    if (isPhone) {
-        // Hide the fullscreen button for phones
-        fullscreenButton.style.display = 'none';
-        console.log('Fullscreen button hidden for phones');
-    } else {
-        // Show the fullscreen button for tablets and larger devices
-        fullscreenButton.style.display = 'block';
-        console.log('Fullscreen button visible for tablets and larger devices');
-    }
-}
+            // Get the fullscreen button
+            const fullscreenButton = document.querySelector('.fullscreen-btn');
 
-// Call the function on page load to check screen size
-window.onload = hideFullscreenButtonForPhones;
+            if (isPhone) {
+                // Hide the fullscreen button for phones
+                fullscreenButton.style.display = 'none';
+                console.log('Fullscreen button hidden for phones');
+            } else {
+                // Show the fullscreen button for tablets and larger devices
+                fullscreenButton.style.display = 'block';
+                console.log('Fullscreen button visible for tablets and larger devices');
+            }
+        }
 
-// Call the function on window resize to adjust button visibility if necessary
-window.onresize = hideFullscreenButtonForPhones;
+        // Call the function on page load to check screen size
+        window.onload = hideFullscreenButtonForPhones;
+
+        // Call the function on window resize to adjust button visibility if necessary
+        window.onresize = hideFullscreenButtonForPhones;
 
 
         // Call showFullscreenButton on page load to check fullscreen availability
@@ -517,8 +525,6 @@ window.onresize = hideFullscreenButtonForPhones;
         // Also call showFullscreenButton on window resize to adjust button visibility if necessary
         window.onresize = showFullscreenButton;
 
-        // Listen for orientation change to simulate fullscreen on phone in landscape
-        window.addEventListener('orientationchange', hideFullscreenButtonForPhones);
 
         // Make sure fullscreen only works when the user interacts with the button directly
         document.querySelector('.fullscreen-btn').addEventListener('click', toggleFullScreen);
