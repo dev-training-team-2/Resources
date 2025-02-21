@@ -479,11 +479,11 @@
 
         function hideFullscreenButtonForPhones() {
     // Get the screen width and height
-    const screenWidth = window.innerHeight;
-    const screenHeight = window.innerWidth;
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
 
     // Define the maximum width for tablets (in px), phones are usually smaller than tablets
-    const tabletMaxWidth = 1024;
+    const tabletMaxWidth = 950;
 
     // Check if the screen width is below the tablet threshold (i.e., it's a phone)
     const isPhone = screenWidth <= tabletMaxWidth;
