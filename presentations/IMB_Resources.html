@@ -122,6 +122,39 @@
             background-color: #707372;
         }
 
+        
+        /* Media Query for large screens */
+        @media (min-width: 1025px) {
+            .carousel-inner {
+                height: auto;
+                /* Remove height constraint on larger screens */
+
+            }
+
+            .carousel {
+                padding-bottom: 20px;
+            }
+
+            .fullscreen-btn {
+                display: block;
+                /* Hide the fullscreen button on larger screens */
+            }
+        }
+
+        /* Media Query for medium screens */
+        @media (min-width: 577px) and (max-width: 1024px)  {
+            .carousel-inner {
+                height: auto;
+                /* Remove height constraint on medium screens */
+                overflow: hidden;
+            }
+
+            .fullscreen-btn {
+                display: block;
+                /* Hide the fullscreen button on medium screens */
+            }
+        }
+
         /* Media Query for smaller screens */
         @media (max-width: 576px) {
             .carousel-inner {
@@ -140,41 +173,27 @@
             }
 
             .fullscreen-btn {
-                display: block;
+                display: none;
                 /* Hide the fullscreen button on smaller screens */
             }
         }
 
+         /* CSS for landscape mode on mobile devices */
+         @media (max-width: 768px) and (orientation: landscape) {
+            .portrait-content {
+                display: none;
+                /* Show content */
+            }
 
-        /* Media Query for medium screens */
-        @media (min-width: 577px) and (max-width: 1024px) and (orientation: landscape) {
             .carousel-inner {
                 height: auto;
                 /* Remove height constraint on medium screens */
-                overflow: hidden;
-            }
-
-            .fullscreen-btn {
-                display: block;
-                /* Hide the fullscreen button on medium screens */
-            }
-        }
-
-        /* Media Query for large screens */
-        @media (min-width: 1025px) {
-            .carousel-inner {
-                height: auto;
-                /* Remove height constraint on larger screens */
-
-            }
-
-            .carousel {
-                padding-bottom: 20px;
+                overflow: visible;
             }
 
             .fullscreen-btn {
                 display: none;
-                /* Hide the fullscreen button on larger screens */
+                /* Hide the fullscreen button in portrait mode */
             }
         }
 
