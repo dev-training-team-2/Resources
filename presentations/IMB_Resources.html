@@ -131,7 +131,6 @@
             /* Adjust as needed for spacing from the left */
             z-index: 1000;
             /* Ensure it's on top of other elements */
-            display: flex;
             align-items: center;
             justify-content: center;
             width: 50px;
@@ -161,6 +160,10 @@
                 /* Remove height constraint on larger screens */
 
             }
+            .download-btn {
+                display: flex;
+                /* Hide the download button on larger screens */
+            }
 
             .carousel {
                 padding-bottom: 20px;
@@ -178,6 +181,10 @@
                 height: auto;
                 /* Remove height constraint on medium screens */
                 overflow: hidden;
+            }
+            .download-btn {
+                display: flex;
+                /* Hide the download button on larger screens */
             }
 
             .fullscreen-btn {
@@ -207,6 +214,10 @@
                 display: none;
                 /* Hide the fullscreen button on smaller screens */
             }
+            .download-btn {
+                display: none;
+                /* Hide the download button on larger screens */
+            }
         }
 
         /* CSS for landscape mode on mobile devices */
@@ -226,6 +237,10 @@
                 display: none;
                 /* Hide the fullscreen button in portrait mode */
             }
+            .download-btn {
+                display: none;
+                /* Hide the download button on larger screens */
+            }
         }
 
         /* CSS for portrait mode on mobile devices */
@@ -244,6 +259,10 @@
             .fullscreen-btn {
                 display: none;
                 /* Hide the fullscreen button in portrait mode */
+            }
+            .download-btn {
+                display: none;
+                /* Hide the download button on larger screens */
             }
         }
     </style>
