@@ -6,6 +6,31 @@ custom-foot: js/browse-js.html
 
 {{ content }}
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  /* For small screens (phones) */
+@media (max-width: 600px) {
+    .card-img-top {
+        max-height: 200px; /* Reduce the height for smaller screens */
+        width: 100%; /* Ensure full width */
+    }
+    .card {
+        height: auto; /* Reset card height to auto before measuring */
+    }
+}
+
+/* For medium screens (tablets) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .card-img-top {
+        max-height: 250px; /* Medium height for tablets */
+    }
+
+    .card {
+        height: auto; /* Reset card height to auto before measuring */
+    }
+}
+</style>
 <div class="row mb-3 justify-content-center">
     <div class="col-md-8 text-center">
         <form class="" role="search" id="lunrSearch" onsubmit="submitFilter(); return false;">
@@ -41,31 +66,35 @@ custom-foot: js/browse-js.html
 <div class="row" id="browseItems"></div>
 
 <script>
-    window.addEventListener('load', function () {
-      // Give the browser a chance to render the content
-      setTimeout(function () {
-        const cards = document.querySelectorAll('.card');
-        let maxHeight = 0;
-  
-        // Reset card heights to auto to ensure we are recalculating from scratch
-        cards.forEach(function (card) {
-          card.style.height = 'auto'; // Reset card height to auto before measuring
-        });
-  
-        // Find the maximum height of all the cards (after layout is fully applied)
-        cards.forEach(function (card) {
-          const cardHeight = card.offsetHeight;  // Get the full height of the card (image + text)
-          if (cardHeight > maxHeight) {
-            maxHeight = cardHeight + 5;  // add 10px to the height to allow for padding
-          }
-        });
-  
-        // Apply the max height to all cards
-        cards.forEach(function (card) {
-          card.style.height = `${maxHeight}px`;  // Set the same height for all cards
-        });
-      }, 0);  // Timeout of 0 milliseconds allows the browser to render before applying JS
+window.addEventListener('load', adjustCardHeights);
+window.addEventListener('resize', adjustCardHeights);  // Recalculate heights on window resize
+
+function adjustCardHeights() {
+  // Allow the browser to render the content before adjusting
+  setTimeout(function () {
+    const cards = document.querySelectorAll('.card');
+    let maxHeight = 0;
+
+    // Reset card heights to auto to ensure we are recalculating from scratch
+    cards.forEach(function (card) {
+      card.style.height = 'auto'; // Reset card height to auto before measuring
     });
+
+    // Find the maximum height of all the cards (after layout is fully applied)
+    cards.forEach(function (card) {
+      const cardHeight = card.offsetHeight;  // Get the full height of the card (image + text)
+      if (cardHeight > maxHeight) {
+        maxHeight = cardHeight + 5;  // Add 5px to the height to allow for padding
+      }
+    });
+
+    // Apply the max height to all cards
+    cards.forEach(function (card) {
+      card.style.height = `${maxHeight}px`;  // Set the same height for all cards
+    });
+  }, 0);  // Timeout of 0 milliseconds allows the browser to render before applying JS
+}
+
   </script>
   
   
