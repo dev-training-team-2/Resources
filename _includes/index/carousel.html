@@ -142,6 +142,14 @@
     var carouselItems = [ {% for c in carousel-items %}[ {{ c.title | jsonify }}, {% if c.youtubeid %}"https://img.youtube.com/vi/{{ c.youtubeid }}/hqdefault.jpg"{% elsif c.filename contains '/' %}{{ c.filename | jsonify }}{% else %}{{ '/objects/' | relative_url | append: c.filename | jsonify }}{% endif %}, {% if c.parentid %}"{{ c.parentid }}#{{ c.objectid }}"{% else %}"{{ c.objectid }}"{% endif %} ]{% unless forloop.last %}, {% endunless %}{% endfor %}];
     /* shuffle items */
     carouselItems.sort(function() { return 0.5 - Math.random() });
+
+    /* preload images */
+    var preloadedImages = [];
+    carouselItems.forEach(function(item) {
+        var img = new Image(); // Create new image element
+        img.src = item[1];     // Set image source
+        preloadedImages.push(img); // Push image into preloaded images array
+    });
  
     /* add items to carousel */
     var carousel = document.getElementById("carouselInner");
