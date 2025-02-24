@@ -81,12 +81,12 @@
 
     /* Ensure the caption section has padding for better spacing */
     .carousel-caption .py-2 {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 
     .carousel-caption a {
-        margin-top: 10px; /* Add space between title and button */
+        margin-top: 5px; /* Add space between title and button */
     }
 
     /* Styling for the carousel itself, ensuring rounded corners */
@@ -159,7 +159,7 @@
         </div></div>
             <div class="carousel-right"><div class="carousel-caption">
                 <h5 class="py-2" style="font-size: 20px;">
-                <a href="${itemLink}" class="btn btn-sm btn-secondary m-1 text-wrap">${carouselItems[i][0]}</a></h5>
+                <a style="font-size: 20px; href="${itemLink}" class="btn btn-sm btn-secondary m-1 text-wrap">${carouselItems[i][0]}</a></h5>
             </div></div></div>`;
         slides += slide;
         indicators += indicator;
