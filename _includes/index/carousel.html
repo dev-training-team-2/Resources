@@ -165,10 +165,10 @@
         indicator = `<button type="button" data-bs-target="#imageCarousel" data-bs-slide-to="${i.toString()}" ${ i == 0 ? 'class="active" aria-current="true" ' : '' }aria-label="Slide ${i.toString()}"></button>`;
         // create slide
         slide = `<a href="${itemLink}"><div class="carousel-item py-2${ i == 0 ? ' active' : '' }">
-             <div class="carousel-center"> <div class="carousel-img">
+             <div class="carousel-caption"><div class="carousel-center"> <div class="carousel-img">
             <img class="d-block h-100 mx-auto lazyload" alt="image highlight" style= "border-radius: 15px;" data-src="${itemImg}"></a>
         </div></div>
-            <div><div class="carousel-caption">
+            <div>
                 <h5 class="py-2" style="font-size: 20px;">${carouselItems[i][0]}</h5>
             </div></div></div></a>`;
         slides += slide;
