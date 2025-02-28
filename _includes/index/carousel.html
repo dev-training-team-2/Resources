@@ -53,12 +53,10 @@
 
     /* Ensure the image fills its container */
     .carousel-item .carousel-img img {
-        /*width: auto;*//* Maintain aspect ratio */
+        width: auto; /* Maintain aspect ratio */
         object-fit: cover; /* Cover the container, cropping if necessary */
         /*NEW*/
         max-width: 600px;  /* Restrict the image width to 600px */
-        width: auto;  /* Allow the image to scale but not exceed max-width */
-       /* height: 100%;*/  /* Fill the container height */
     }
     .carousel-img {  
         margin-top: 25px; 
