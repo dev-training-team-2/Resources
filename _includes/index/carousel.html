@@ -39,10 +39,7 @@
         height: {{ include.height | remove: 'px' | strip | default: '300' }}px; 
         
         display: flex;
-        /*NEW*/
         justify-content: center; /* Center horizontally */
-        /*align-items: center; */  /* Center vertically */
-        /*margin: 0 auto; */ /* Center the container itself */
     }
     
     .carousel-center {
@@ -56,12 +53,12 @@
     .carousel-item .carousel-img img {
         width: auto; /* Maintain aspect ratio */
         object-fit: cover; /* Cover the container, cropping if necessary */
-        /*NEW*/
         max-width: 800px; /* Restrict the image width to 800px */
     }
+
     .carousel-img {  
         margin-top: 25px; 
-        margin-bottom: 90px; 
+        margin-bottom: 72px; 
         /* Add space above and below the image for background color of carousel-item */
     }
 
