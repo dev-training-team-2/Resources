@@ -71,10 +71,10 @@ function makeCard(obj) {
         thumbSrc = '{{ "/assets/lib/icons/" | relative_url }}{{ icons.icon-default }}.svg';
     }  
     // start card
-    var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2">  <div class="card" style="display: flex; flex-direction: column; height: 100%;"><!-- Image on top --><div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; align-items: center;">';
+    var card = '<div class="item col-lg-4 col-md-6 col-sm-12 mb-2">  <div class="card" style="display: flex; flex-direction: column; height: 100%; background-color: #f8f5f1; border-radius: 15px;"><!-- Image on top --><div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; align-items: center;">';
     // top image for photos
     if(imgSrc) {
-        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" style="height: auto; max-height: 300px; width: auto; max-width: 300px;" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
+        card += '<a href="' + itemHref + '"> <img class="card-img-top lazyload" style="height: auto; max-height: 300px; width: auto; max-width: 300px; border-radius: 15px;" data-src="' + imgSrc + '" alt="Image of ' + obj.title + '"></a>';
     }
     // title
     card += ' </div><!-- Text at the bottom --><div class="card-body text-center" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; flex-grow: 0; margin-top: auto;"> <h3 class="card-title h4" style="text-align:center;"><a href="' + itemHref + '" class="text-dark">' + obj.title + '</a></h3>';
